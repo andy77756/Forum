@@ -1,3 +1,5 @@
+using ForumLib.Repositories;
+using ForumLib.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +34,9 @@ namespace ForumWebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ForumWebApi", Version = "v1" });
             });
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRegisterService, RegisterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

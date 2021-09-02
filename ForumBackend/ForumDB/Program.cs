@@ -8,7 +8,7 @@ namespace ForumDB
     {
         static int Main(string[] args)
         {
-            var connectionString = "Server=localhost; Database=Forum2; Trusted_connection=true";
+            var connectionString = "Server=localhost; Database=Forum; Trusted_connection=true";
 
             var upgrader =
                 DeployChanges.To

@@ -33,7 +33,7 @@ CREATE TABLE [dbo].[t_replies](
 	[f_userId] [int] NOT NULL,
 	[f_postId] [int] NOT NULL,
 	[f_content] [nvarchar](max) NULL,
-	[f_createAt] [datetime] NULL,
+	[f_createAt] [datetime] NOT NULL,
  CONSTRAINT [PK_t_replies] PRIMARY KEY CLUSTERED 
 (
 	[f_id] ASC
