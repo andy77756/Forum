@@ -1,7 +1,7 @@
-﻿using ForumLib.Models;
+﻿using ForumDAL.Models;
 using System.Threading.Tasks;
 
-namespace ForumLib.Repositories
+namespace ForumDAL.Repositories
 {
     public interface IUserRepository : IGenericRepository<User>
     {

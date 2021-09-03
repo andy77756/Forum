@@ -1,6 +1,6 @@
-﻿using ForumLib.Models;
+﻿using ForumDAL.Models;
 
-namespace ForumLib.Repositories
+namespace ForumDAL.Repositories
 {
     public interface IReplyRepository : IGenericRepository<Reply>
     {

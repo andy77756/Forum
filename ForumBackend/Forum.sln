@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumWebApi", "ForumWebApi\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumLib", "ForumLib\ForumLib.csproj", "{6D27EF01-EAA6-445A-AE17-EC0916802452}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumDAL", "ForumDAL\ForumDAL.csproj", "{4B2EB43D-6D19-45A3-B0E6-9A0B12323BD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{6D27EF01-EAA6-445A-AE17-EC0916802452}.Release|ARM64.Build.0 = Release|Any CPU
 		{6D27EF01-EAA6-445A-AE17-EC0916802452}.Release|x64.ActiveCfg = Release|Any CPU
 		{6D27EF01-EAA6-445A-AE17-EC0916802452}.Release|x64.Build.0 = Release|Any CPU
+		{4B2EB43D-6D19-45A3-B0E6-9A0B12323BD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B2EB43D-6D19-45A3-B0E6-9A0B12323BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B2EB43D-6D19-45A3-B0E6-9A0B12323BD0}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{4B2EB43D-6D19-45A3-B0E6-9A0B12323BD0}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{4B2EB43D-6D19-45A3-B0E6-9A0B12323BD0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4B2EB43D-6D19-45A3-B0E6-9A0B12323BD0}.Debug|x64.Build.0 = Debug|Any CPU
+		{4B2EB43D-6D19-45A3-B0E6-9A0B12323BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B2EB43D-6D19-45A3-B0E6-9A0B12323BD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B2EB43D-6D19-45A3-B0E6-9A0B12323BD0}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{4B2EB43D-6D19-45A3-B0E6-9A0B12323BD0}.Release|ARM64.Build.0 = Release|Any CPU
+		{4B2EB43D-6D19-45A3-B0E6-9A0B12323BD0}.Release|x64.ActiveCfg = Release|Any CPU
+		{4B2EB43D-6D19-45A3-B0E6-9A0B12323BD0}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

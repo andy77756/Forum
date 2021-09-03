@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ForumLib.Repositories
+namespace ForumDAL.Repositories
 {
     public interface IGenericRepository<T> where T : class
     {

@@ -1,5 +1,4 @@
-using ForumLib.Repositories;
-using ForumLib.Services;
+using ForumDAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,7 +35,6 @@ namespace ForumWebApi
             });
 
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IRegisterService, RegisterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
