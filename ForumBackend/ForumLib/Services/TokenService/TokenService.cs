@@ -1,4 +1,6 @@
-﻿using ForumLib.Helpers;
+﻿using ForumDAL.Repositories;
+using ForumLib.Helpers;
+using ForumLib.Models;
 using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
@@ -7,24 +9,41 @@ namespace ForumLib.Services.TokenService
 {
     public class TokenService : ITokenService
     {
+        /// <summary>
+        /// JwtHelper
+        /// </summary>
         private readonly JwtHelper JwtHelper;
-        private ConcurrentDictionary<string, DateTime> tokenMaps = new ConcurrentDictionary<string, DateTime>();
 
-        public TokenService(JwtHelper jwtHelper)
+        /// <summary>
+        /// User Repository
+        /// </summary>
+        private readonly IUserRepository UserRepository;
+
+        /// <summary>
+        /// Token map to expiredDatetime and permission
+        /// </summary>
+        private ConcurrentDictionary<string, TokenMapInfo> tokenMaps = new ConcurrentDictionary<string, TokenMapInfo>();
+
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="jwtHelper">jwthelper</param>
+        public TokenService(JwtHelper jwtHelper, IUserRepository userRepository)
         {
             JwtHelper = jwtHelper;
+            UserRepository = userRepository;
         }
 
         public async Task<bool> CheckJwtIsValidAsync(string jti)
         {
-            var isTrue = tokenMaps.TryGetValue(jti, out DateTime expiredDt);
+            var isTrue = tokenMaps.TryGetValue(jti, out TokenMapInfo info);
 
             if (!isTrue)
             {
                 return false;
             }
 
-            if (expiredDt < DateTime.Now)
+            if (info.ExpiredDateTime < DateTime.Now)
             {
                 return false;
             }
@@ -34,22 +53,27 @@ namespace ForumLib.Services.TokenService
 
         public async Task DeleteJtiAsync(string jti)
         {
-            _ = tokenMaps.TryRemove(jti, out var dt);
+            _ = tokenMaps.TryRemove(jti, out var info);
 
             return;
         }
 
-        public async Task<string> GenerateJwtAsync(int userId)
+        public async Task<string> GenerateJwtAsync(int userId, int level)
         {
             var jti = Guid.NewGuid().ToString();
 
             var expiredDt = DateTime.Now.AddHours(1);
 
-            var jwt = JwtHelper.GenerateJwt(jti, userId, expiredDt, null);
+            var jwt = JwtHelper.GenerateJwt(jti, userId, expiredDt);
 
-            tokenMaps.TryAdd(jti, expiredDt);
+            tokenMaps.TryAdd(jti, new TokenMapInfo
+            {
+                ExpiredDateTime = expiredDt,
+                Permission = level
+            });
 
             return jwt;
         }
+
     }
 }

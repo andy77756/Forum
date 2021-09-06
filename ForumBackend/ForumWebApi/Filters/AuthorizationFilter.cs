@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace ForumWebApi.Filters
 {
-    public sealed class AuthorizationFilter : IAsyncAuthorizationFilter
+    public sealed class AuthorizationFilter : Attribute, IAsyncAuthorizationFilter
     {
-        private readonly TokenService TokenService;
+        private readonly ITokenService TokenService;
 
-        public AuthorizationFilter(TokenService tokenService)
+        public AuthorizationFilter(ITokenService tokenService)
         {
             TokenService = tokenService;
         }

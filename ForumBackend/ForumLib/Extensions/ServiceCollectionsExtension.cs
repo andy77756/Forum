@@ -18,7 +18,7 @@ namespace ForumLib.Extensions
         /// <returns></returns>
         public static IServiceCollection AddEncryptHelper(this IServiceCollection serviceCollection, Action<EncryptConfig> options)
         {
-            serviceCollection.AddScoped<EncryptHelper>();
+            serviceCollection.AddSingleton<EncryptHelper>();
 
             if (options == null)
             {
@@ -37,7 +37,7 @@ namespace ForumLib.Extensions
         /// <returns></returns>
         public static IServiceCollection AddJwtHelper(this IServiceCollection serviceCollection, Action<JwtConfig> options)
         {
-            serviceCollection.AddScoped<JwtHelper>();
+            serviceCollection.AddSingleton<JwtHelper>();
 
             if (options == null)
             {

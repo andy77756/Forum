@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ForumWebApi.Filters;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace ForumWebApi.Controllers
             _logger = logger;
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {

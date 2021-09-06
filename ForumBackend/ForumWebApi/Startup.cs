@@ -2,6 +2,8 @@ using ForumDAL.Repositories;
 using ForumLib.Extensions;
 using ForumLib.Helpers;
 using ForumLib.Models;
+using ForumLib.Services.LoginService;
+using ForumLib.Services.RegisterService;
 using ForumLib.Services.TokenService;
 using ForumWebApi.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -38,7 +40,7 @@ namespace ForumWebApi
 
             services.AddControllers(config =>
             {
-                config.Filters.Add(typeof(AuthorizationFilter));
+                //config.Filters.Add(typeof(AuthorizationFilter));
             });
 
             services.AddSwaggerGen(c =>
@@ -68,8 +70,10 @@ namespace ForumWebApi
             services.AddEncryptHelper(options => Configuration.GetSection("Encrypt").Bind(options));
             services.AddJwtHelper(options => Configuration.GetSection("jwt").Bind(options));
 
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ITokenService, TokenService>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<ITokenService, TokenService>();
+            services.AddSingleton<ILoginService, LoginService>();
+            services.AddSingleton<IRegisterService, RegisterService>();
 
         }
 

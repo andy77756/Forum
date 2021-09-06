@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\LoginService\" />
+    <ProjectReference Include="..\ForumDAL\ForumDAL.csproj" />
   </ItemGroup>
 
 </Project>

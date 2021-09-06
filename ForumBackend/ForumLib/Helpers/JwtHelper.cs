@@ -26,9 +26,8 @@ namespace ForumLib.Helpers
         /// <param name="jti">Jti</param>
         /// <param name="id">使用者ID</param>
         /// <param name="expiredDateTime">過期時間</param>
-        /// <param name="hours">時差</param>
         /// <returns></returns>
-        public string GenerateJwt(string jti, int id, DateTime expiredDateTime, int? hours)
+        public string GenerateJwt(string jti, int id, DateTime expiredDateTime)
         {
             if (expiredDateTime < DateTime.Now)
             {
@@ -38,7 +37,6 @@ namespace ForumLib.Helpers
             var userClaims = new ClaimsIdentity(new[] {
                 new Claim(JwtRegisteredClaimNames.Jti, jti),
                 new Claim(JwtRegisteredClaimNames.Sub, id.ToString()),
-                new Claim("hours", hours.ToString())
             });
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfig.SignKey));
