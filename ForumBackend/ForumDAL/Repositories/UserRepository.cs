@@ -19,7 +19,7 @@ namespace ForumDAL.Repositories
 
         public async Task<int> AddAsync(User entity)
         {
-            var sql = "INSERT INTO t_users (f_email, f_userName, f_password, f_createAt) VALUES (@f_email, @f_userName, @f_password, @f_createAt)";
+            var sql = "INSERT INTO t_users (f_nickname, f_userName, f_pwd, f_level) VALUES (@f_nickname, @f_userName, @f_pwd, @f_level)";
 
             using (var connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
@@ -45,7 +45,7 @@ namespace ForumDAL.Repositories
 
         public async Task<IReadOnlyList<User>> GetAllAsync()
         {
-            var sql = "SELECT f_id, f_email, f_userName, f_password, f_createAt FROM t_users WITH(NOLOCK)";
+            var sql = "SELECT f_id, f_nickname, f_userName, f_pwd, f_createAt, f_level FROM t_users WITH(NOLOCK)";
 
             using (var connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
@@ -58,12 +58,25 @@ namespace ForumDAL.Repositories
 
         public async Task<User> GetByIdAsync(int id)
         {
-            var sql = "SELECT f_id, f_email, f_userName, f_password, f_createAt FROM t_users WHERE f_id = @f_id WITH(NOLOCK)";
+            var sql = "SELECT f_id, f_nickname, f_userName, f_pwd, f_createAt, f_level FROM t_users WITH(NOLOCK) WHERE f_id = @f_id ";
 
             using (var connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
-                var result = await connection.QuerySingleOrDefaultAsync<User>(sql);
+                var result = await connection.QuerySingleOrDefaultAsync<User>(sql, new { f_id = id });
+
+                return result;
+            }
+        }
+
+        public async Task<User> GetByUserNameAsync(string userName)
+        {
+            var sql = "SELECT f_id, f_nickname, f_userName, f_pwd, f_createAt, f_level FROM t_users WITH(NOLOCK) WHERE f_userName = @f_userName ";
+
+            using (var connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+                var result = await connection.QuerySingleOrDefaultAsync<User>(sql,new { f_userName = userName });
 
                 return result;
             }
@@ -84,7 +97,7 @@ namespace ForumDAL.Repositories
 
         public async Task<int> UpdateAsync(User entity)
         {
-            var sql = "UPDATE User SET f_email = @f_email, f_password = @f_password";
+            var sql = "UPDATE User WITH(ROWLOCK) SET f_nickname = @f_nickname, f_pwd = @f_pwd";
 
             using (var connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {

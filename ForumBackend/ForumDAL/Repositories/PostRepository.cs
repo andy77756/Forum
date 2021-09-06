@@ -19,7 +19,7 @@ namespace ForumDAL.Repositories
 
         public async Task<int> AddAsync(Post entity)
         {
-            var sql = "INSERT INTO t_posts (f_userId, f_topic, f_content, f_createAt) VALUES (@f_userId, @f_topic, @f_content, @f_createAt)";
+            var sql = "INSERT INTO t_posts (f_userId, f_topic, f_content, f_createAt, f_updateAt) VALUES (@f_userId, @f_topic, @f_content, @f_createAt, @f_updateAt)";
 
             using (var connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
@@ -45,7 +45,7 @@ namespace ForumDAL.Repositories
 
         public async Task<IReadOnlyList<Post>> GetAllAsync()
         {
-            var sql = "SELECT f_id, f_userId, f_topic, f_content, f_createAt FROM t_posts WITH(NOLOCK)";
+            var sql = "SELECT f_id, f_userId, f_topic, f_content, f_createAt, f_updateAt FROM t_posts WITH(NOLOCK)";
 
             using (var connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
@@ -58,12 +58,12 @@ namespace ForumDAL.Repositories
 
         public async Task<Post> GetByIdAsync(int id)
         {
-            var sql = "SELECT f_id, f_userId, f_topic, f_content, f_createAt FROM t_posts WHERE f_id = @f_id WITH(NOLOCK)";
+            var sql = "SELECT f_id, f_userId, f_topic, f_content, f_createAt, f_updateAt FROM t_posts WITH(NOLOCK) WHERE f_id = @f_id ";
 
             using (var connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
-                var result = await connection.QuerySingleOrDefaultAsync<Post>(sql);
+                var result = await connection.QuerySingleOrDefaultAsync<Post>(sql, new { f_id = id});
 
                 return result;
             }
@@ -71,7 +71,7 @@ namespace ForumDAL.Repositories
 
         public async Task<int> UpdateAsync(Post entity)
         {
-            var sql = "UPDATE User SET f_topic = @f_topic, f_content = @f_content";
+            var sql = "UPDATE User WITH(ROWLOCK) SET f_topic = @f_topic, f_content = @f_content, f_updateAt = @f_updateAt";
 
             using (var connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {

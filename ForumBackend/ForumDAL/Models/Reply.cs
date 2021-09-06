@@ -13,5 +13,7 @@ namespace ForumDAL.Models
         public string f_content { get; set; }
 
         public DateTime f_createAt { get; set; }
+
+        public DateTime? f_updateAt { get; set; }
     }
 }
