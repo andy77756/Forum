@@ -23,10 +23,10 @@ namespace ForumLib.Extensions
         public static string GetJti(this ClaimsPrincipal user) => user.Claims.FirstOrDefault(x => x.Type == "jti")?.Value;
 
         /// <summary>
-        /// 取得 Hours
+        /// 取得 permission
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static string GetHours(this ClaimsPrincipal user) => user.Claims.FirstOrDefault(x => x.Type == "hours")?.Value;
+        public static int GetPermission(this ClaimsPrincipal user) => user.Claims.FirstOrDefault(x => x.Type == "level")?.Value.ToInt() ?? 0;
     }
 }

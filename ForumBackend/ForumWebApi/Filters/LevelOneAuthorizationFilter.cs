@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace ForumWebApi.Filters
 {
-    public sealed class AuthorizationFilter : Attribute, IAsyncAuthorizationFilter
+    public sealed class LevelOneAuthorizationFilter : Attribute, IAsyncAuthorizationFilter
     {
         private readonly ITokenService TokenService;
 
-        public AuthorizationFilter(ITokenService tokenService)
+        public LevelOneAuthorizationFilter(ITokenService tokenService)
         {
             TokenService = tokenService;
         }
@@ -27,10 +27,11 @@ namespace ForumWebApi.Filters
             }
 
             var jti = context.HttpContext.User.GetJti();
+            var level = context.HttpContext.User.GetPermission();
 
             var isValid = await TokenService.CheckJwtIsValidAsync(jti);
 
-            if (!isValid)
+            if (!isValid || level < 1)
             {
                 context.Result = new UnauthorizedResult();
             }

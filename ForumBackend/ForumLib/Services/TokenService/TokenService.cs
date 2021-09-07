@@ -64,7 +64,7 @@ namespace ForumLib.Services.TokenService
 
             var expiredDt = DateTime.Now.AddHours(1);
 
-            var jwt = JwtHelper.GenerateJwt(jti, userId, expiredDt);
+            var jwt = JwtHelper.GenerateJwt(jti, userId, expiredDt, level);
 
             tokenMaps.TryAdd(jti, new TokenMapInfo
             {
