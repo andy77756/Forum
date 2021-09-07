@@ -1,4 +1,6 @@
-﻿using ForumWebApi.Filters;
+﻿using ForumDAL.Models;
+using ForumLib.Services.ForumService;
+using ForumWebApi.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,13 +20,15 @@ namespace ForumWebApi.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IForumService ForumService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IForumService forumService)
         {
             _logger = logger;
+            ForumService = forumService;
         }
 
-        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(LevelOneAuthorizationFilter))]
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
@@ -37,5 +41,6 @@ namespace ForumWebApi.Controllers
             })
             .ToArray();
         }
+
     }
 }

@@ -2,6 +2,7 @@ using ForumDAL.Repositories;
 using ForumLib.Extensions;
 using ForumLib.Helpers;
 using ForumLib.Models;
+using ForumLib.Services.ForumService;
 using ForumLib.Services.LoginService;
 using ForumLib.Services.RegisterService;
 using ForumLib.Services.TokenService;
@@ -70,10 +71,14 @@ namespace ForumWebApi
             services.AddEncryptHelper(options => Configuration.GetSection("Encrypt").Bind(options));
             services.AddJwtHelper(options => Configuration.GetSection("jwt").Bind(options));
 
+            services.AddSingleton<IStoreProcedure, StoreProcedure>();
             services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IReplyRepository, ReplyRepository>();
             services.AddSingleton<ITokenService, TokenService>();
             services.AddSingleton<ILoginService, LoginService>();
             services.AddSingleton<IRegisterService, RegisterService>();
+            services.AddScoped<IForumService, ForumService>();
 
         }
 
