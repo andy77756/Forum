@@ -13,15 +13,18 @@ namespace ForumLib.Services.RegisterService
         private readonly ITokenService TokenService;
         private readonly IUserRepository UserRepository;
         private readonly EncryptHelper EncryptHelper;
+        private readonly IStoreProcedure StoreProcedure;
 
         public RegisterService(
             ITokenService tokenService,
             IUserRepository userRepository,
-            EncryptHelper encryptHelper)
+            EncryptHelper encryptHelper,
+            IStoreProcedure storeProcedure)
         {
             TokenService = tokenService;
             UserRepository = userRepository;
             EncryptHelper = encryptHelper;
+            StoreProcedure = storeProcedure;
         }
         public async Task<UserInfoDto> RegisterAsync(string userName, string nickname, string pwd)
         {
@@ -41,6 +44,10 @@ namespace ForumLib.Services.RegisterService
             };
 
             _ = await UserRepository.AddAsync(user);
+
+            user = await UserRepository.GetByUserNameAsync(userName);
+
+            await StoreProcedure.AddLoginRecord(user.f_id);
 
             user = await UserRepository.GetByUserNameAsync(userName);
 

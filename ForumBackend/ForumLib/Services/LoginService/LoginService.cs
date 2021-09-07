@@ -15,6 +15,7 @@ namespace ForumLib.Services.LoginService
         private readonly ITokenService TokenService;
         private readonly IUserRepository UserRepository;
         private readonly EncryptHelper EncryptHelper;
+        private readonly IStoreProcedure StoreProcedure;
 
         /// <summary>
         /// constructor
@@ -22,11 +23,13 @@ namespace ForumLib.Services.LoginService
         public LoginService(
             ITokenService tokenService, 
             IUserRepository userRepository,
-            EncryptHelper encryptHelper)
+            EncryptHelper encryptHelper,
+            IStoreProcedure storeProcedure)
         {
             TokenService = tokenService;
             UserRepository = userRepository;
             EncryptHelper = encryptHelper;
+            StoreProcedure = storeProcedure;
         }
 
         /// <summary>
@@ -37,6 +40,7 @@ namespace ForumLib.Services.LoginService
         /// <returns></returns>
         public async Task<UserInfoDto> LoginAsync(string userName, string pwd)
         {
+
             var user = await UserRepository.GetByUserNameAsync(userName);
 
             var encrytPwd = EncryptHelper.Encrypt(pwd);
@@ -45,6 +49,10 @@ namespace ForumLib.Services.LoginService
             {
                 throw new Exception("wrong password");
             }
+
+            await StoreProcedure.AddLoginRecord(user.f_id);
+
+            user = await UserRepository.GetByUserNameAsync(userName);
 
             var jwt = await TokenService.GenerateJwtAsync(user.f_id, user.f_level);
 
