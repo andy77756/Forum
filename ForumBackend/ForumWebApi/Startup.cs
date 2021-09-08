@@ -66,6 +66,19 @@ namespace ForumWebApi
                     };
                 });
 
+            var corsUrl = Configuration.GetSection("CorsUrl").Value.Split(',');
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.WithOrigins(corsUrl)
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials();
+                });
+            });
+
             services.AddHttpContextAccessor();
 
             services.AddEncryptHelper(options => Configuration.GetSection("Encrypt").Bind(options));
@@ -95,6 +108,8 @@ namespace ForumWebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
 

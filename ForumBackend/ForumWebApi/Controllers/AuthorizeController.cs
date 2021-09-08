@@ -1,6 +1,7 @@
 ﻿using ForumLib.Dtos;
 using ForumLib.Services.LoginService;
 using ForumLib.Services.RegisterService;
+using ForumWebApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -41,11 +42,11 @@ namespace ForumWebApi.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public async Task<ActionResult<UserInfoDto>> LoginAsync(string userName, string pwd)
+        public async Task<ActionResult<UserInfoDto>> LoginAsync(LoginInfo loginInfo)
         {
             try
             {
-                return await LoginService.LoginAsync(userName, pwd);
+                return await LoginService.LoginAsync(loginInfo.userName, loginInfo.pwd);
             }
             catch (Exception e)
             {

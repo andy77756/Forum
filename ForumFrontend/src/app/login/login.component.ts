@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         catchError(error => {
           return throwError(error);
         }),
-        map((result) => result.user),
+        map((result) => result),
       )
       .subscribe({
         next: (user) => {
