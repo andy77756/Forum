@@ -42,6 +42,9 @@ namespace ForumWebApi
             services.AddControllers(config =>
             {
                 //config.Filters.Add(typeof(AuthorizationFilter));
+            }).AddJsonOptions(option =>
+            {
+                option.JsonSerializerOptions.PropertyNameCaseInsensitive = false;
             });
 
             services.AddSwaggerGen(c =>

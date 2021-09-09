@@ -2,11 +2,8 @@
 using ForumLib.Services.LoginService;
 using ForumLib.Services.RegisterService;
 using ForumWebApi.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ForumWebApi.Controllers
@@ -16,6 +13,7 @@ namespace ForumWebApi.Controllers
     public class AuthorizeController : ControllerBase
     {
         private readonly IRegisterService RegisterService;
+
         private readonly ILoginService LoginService;
 
         public AuthorizeController(IRegisterService registerService, ILoginService loginService)
@@ -26,18 +24,17 @@ namespace ForumWebApi.Controllers
 
         [HttpPost]
         [Route("Register")]
-        public async Task<ActionResult<UserInfoDto>> RegisterAsync(string userName, string nickname, string pwd)
+        public async Task<ActionResult<UserInfoDto>> RegisterAsync(RegisterInfo registerInfo)
         {
             try
             {
-                var result = await RegisterService.RegisterAsync(userName, nickname, pwd);
+                var result = await RegisterService.RegisterAsync(registerInfo.UserName, registerInfo.Nickname, registerInfo.Pwd);
                 return result;
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-
         }
 
         [HttpPost]
@@ -46,7 +43,7 @@ namespace ForumWebApi.Controllers
         {
             try
             {
-                return await LoginService.LoginAsync(loginInfo.userName, loginInfo.pwd);
+                return await LoginService.LoginAsync(loginInfo.UserName, loginInfo.Pwd);
             }
             catch (Exception e)
             {

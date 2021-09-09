@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace ForumWebApi.Models
 {
-    public class LoginInfo
+    public class RegisterInfo
     {
         public string UserName { get; set; }
+        public string Nickname { get; set; }
         public string Pwd { get; set; }
     }
 }
