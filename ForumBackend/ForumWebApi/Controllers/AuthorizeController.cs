@@ -1,9 +1,7 @@
-﻿using ForumLib.Dtos;
-using ForumLib.Services.LoginService;
+﻿using ForumLib.Services.LoginService;
 using ForumLib.Services.RegisterService;
 using ForumWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace ForumWebApi.Controllers
@@ -24,31 +22,18 @@ namespace ForumWebApi.Controllers
 
         [HttpPost]
         [Route("Register")]
-        public async Task<ActionResult<UserInfoDto>> RegisterAsync(RegisterInfo registerInfo)
+        public async Task<IActionResult> RegisterAsync(RegisterInfo registerInfo)
         {
-            try
-            {
-                var result = await RegisterService.RegisterAsync(registerInfo.UserName, registerInfo.Nickname, registerInfo.Pwd);
-                return result;
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            var result = await RegisterService.RegisterAsync(registerInfo.UserName, registerInfo.Nickname, registerInfo.Pwd);
+            return Ok(result);
         }
 
         [HttpPost]
         [Route("Login")]
-        public async Task<ActionResult<UserInfoDto>> LoginAsync(LoginInfo loginInfo)
+        public async Task<IActionResult> LoginAsync(LoginInfo loginInfo)
         {
-            try
-            {
-                return await LoginService.LoginAsync(loginInfo.UserName, loginInfo.Pwd);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            var result = await LoginService.LoginAsync(loginInfo.UserName, loginInfo.Pwd);
+            return Ok(result);
         }
     }
 }

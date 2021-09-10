@@ -1,6 +1,8 @@
 ﻿using ForumDAL.Models;
+using ForumLib.Models;
 using ForumLib.Services.ForumService;
 using ForumWebApi.Filters;
+using ForumWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -30,16 +32,18 @@ namespace ForumWebApi.Controllers
 
         [TypeFilter(typeof(LevelOneAuthorizationFilter))]
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IActionResult Get()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+
+            return Ok(new Result<IEnumerable<WeatherForecast>>(1, result));
         }
 
     }

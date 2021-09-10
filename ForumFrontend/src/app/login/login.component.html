@@ -3,51 +3,87 @@
     <div class="row">
 
       <div class="col-md-6 col-md-offset-3 col-xs-12">
-        <h1 *ngIf="loginFlag == true" class="text-xs-center">Sign in</h1>
-        <h1 *ngIf="loginFlag == false" class="text-xs-center">Register</h1>
+        <h1 *ngIf="loginFlag == true" class="text-xs-center">{{'login.login' | translate }}</h1>
+        <h1 *ngIf="loginFlag == false" class="text-xs-center">{{'login.register' | translate }}</h1>
         <form #form="ngForm">
           <fieldset class="form-group">
             <input
+              [ngClass]="{'init': userName.untouched ,'valid': userName.touched && userName.valid , 'invalid' : userName.touched && userName.invalid}"
               [(ngModel)]="userLogin.userName"
               name="userName"
               class="form-control form-control-lg"
               type="text"
               placeholder="userName"
               required
+              minlength="5"
+              maxlength="30"
+              pattern="^.[A-Za-z0-9]+$"
               #userName="ngModel">
+            <div *ngIf="userName.invalid">
+              <span *ngIf="userName['errors']?.required && userName.touched">
+                {{'error.require' | translate :{'itemName' : 'login.userName' | translate } }}
+              </span>
+              <span *ngIf="userName['errors']?.minlength">
+                {{'error.invalidMinLength' | translate :{'count' : 5} }}
+              </span>
+              <span *ngIf="userName['errors']?.pattern">
+                {{'error.invalidPattern' | translate}}
+              </span>
+            </div>
           </fieldset>
           <fieldset *ngIf="loginFlag == false" class="form-group">
             <input
+            [ngClass]="{'init': userName.untouched ,'valid': userName.touched && userName.valid , 'invalid' : userName.touched && userName.invalid}"
               [(ngModel)]="userLogin.nickname"
               name="nickname"
               class="form-control form-control-lg"
               type="text"
               placeholder="nickname"
               required
+              maxlength="10"
               #nickname="ngModel">
+            <div *ngIf="nickname.invalid">
+              <span *ngIf="nickname['errors']?.required && nickname.touched">
+                {{'error.require' | translate :{'itemName' : 'login.nickname' | translate } }}
+              </span>
+            </div>
           </fieldset>
           <fieldset class="form-group">
             <input
+            [ngClass]="{'init': userName.untouched ,'valid': userName.touched && userName.valid , 'invalid' : userName.touched && userName.invalid}"
               required
+              maxlength="20"
+              minlength="6"
               #pwd="ngModel"
-              [(ngModel)]="userLogin.pwd" name="password" class="form-control form-control-lg" type="password" placeholder="Password">
+              [(ngModel)]="userLogin.pwd" name="pwd" class="form-control form-control-lg" type="password" placeholder="Password">
+            <div *ngIf="pwd.invalid">
+              <span *ngIf="pwd['errors']?.required && pwd.touched">
+                {{'error.require' | translate :{'itemName' : 'login.pwd' | translate } }}
+              </span>
+              <span *ngIf="pwd['errors']?.minlength">
+                {{'error.invalidMinLength' | translate :{'count' : 6} }}
+              </span>
+            </div>
           </fieldset>
-          {{ pwd.errors | json }}
           <button *ngIf="loginFlag == true"
             [disabled]="form.invalid"
             class="btn btn-lg btn-primary pull-xs-right" (click)="login()">
-            Sign in
+            {{'login.login' | translate }}
           </button>
           <button *ngIf="loginFlag == false"
             [disabled]="form.invalid"
             class="btn btn-lg btn-primary pull-xs-right" (click)="register()">
-            Register
+            {{'login.register' | translate }}
           </button>
         </form>
-        <a *ngIf="loginFlag == true" (click)="reverseFlag()" type="button">Register</a>
-        <a *ngIf="loginFlag == false" (click)="reverseFlag()" type="button">Login in</a>
+        <a *ngIf="loginFlag == true" (click)="reverseFlag()" type="button">
+          {{'login.register' | translate }}
+        </a>
+        <a *ngIf="loginFlag == false" (click)="reverseFlag()" type="button">
+          {{'login.login' | translate }}
+        </a>
       </div>
-      {{ loginFlag | json }}
     </div>
   </div>
 </div>
+{{errorMessage | translate}}

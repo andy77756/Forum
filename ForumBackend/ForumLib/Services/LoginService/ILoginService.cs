@@ -1,8 +1,5 @@
 ﻿using ForumLib.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using ForumLib.Models;
 using System.Threading.Tasks;
 
 namespace ForumLib.Services.LoginService
@@ -15,13 +12,13 @@ namespace ForumLib.Services.LoginService
         /// <param name="userName">username</param>
         /// <param name="pwd">password</param>
         /// <returns></returns>
-        public Task<UserInfoDto> LoginAsync(string userName, string pwd);
+        public Task<Result<UserInfoDto>> LoginAsync(string userName, string pwd);
 
         /// <summary>
         /// logout
         /// </summary>
         /// <returns></returns>
-        public Task<bool> LogoutAsync();
+        public Task<Result> LogoutAsync();
 
     }
 }

@@ -1,10 +1,19 @@
-﻿using ForumLib.Extensions;
+﻿using ForumDAL.Models;
+using ForumLib.Enums;
+using ForumLib.Extensions;
+using ForumLib.Models;
 using ForumLib.Services.TokenService;
+using ForumWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace ForumWebApi.Filters
@@ -22,7 +31,7 @@ namespace ForumWebApi.Filters
         {
             if (context.HttpContext.User.Identity.Name is null)
             {
-                context.Result = new UnauthorizedResult();
+                context.Result = new CustomActionResult(new Result((int)StatusCodeEnum.TokenNotExist));
                 return;
             }
 
@@ -33,7 +42,7 @@ namespace ForumWebApi.Filters
 
             if (!isValid || level < 1)
             {
-                context.Result = new UnauthorizedResult();
+                context.Result = new CustomActionResult(new Result((int)StatusCodeEnum.TokenExpired));
             }
         }
     }

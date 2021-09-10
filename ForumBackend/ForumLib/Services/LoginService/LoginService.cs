@@ -1,6 +1,8 @@
 ﻿using ForumDAL.Repositories;
 using ForumLib.Dtos;
+using ForumLib.Enums;
 using ForumLib.Helpers;
+using ForumLib.Models;
 using ForumLib.Services.TokenService;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,6 @@ namespace ForumLib.Services.LoginService
     public class LoginService : ILoginService
     {
         private readonly ITokenService TokenService;
-        private readonly IUserRepository UserRepository;
         private readonly EncryptHelper EncryptHelper;
         private readonly IStoreProcedure StoreProcedure;
 
@@ -22,12 +23,10 @@ namespace ForumLib.Services.LoginService
         /// </summary>
         public LoginService(
             ITokenService tokenService, 
-            IUserRepository userRepository,
             EncryptHelper encryptHelper,
             IStoreProcedure storeProcedure)
         {
             TokenService = tokenService;
-            UserRepository = userRepository;
             EncryptHelper = encryptHelper;
             StoreProcedure = storeProcedure;
         }
@@ -38,38 +37,34 @@ namespace ForumLib.Services.LoginService
         /// <param name="userName">username</param>
         /// <param name="pwd">password</param>
         /// <returns></returns>
-        public async Task<UserInfoDto> LoginAsync(string userName, string pwd)
+        public async Task<Result<UserInfoDto>> LoginAsync(string userName, string pwd)
         {
+            var loginResult = await StoreProcedure.LoginAsync(userName, EncryptHelper.Encrypt(pwd));
 
-            var user = await UserRepository.GetByUserNameAsync(userName);
-
-            var encrytPwd = EncryptHelper.Encrypt(pwd);
-
-            if (user.f_pwd != encrytPwd)
+            if (loginResult.StatusCode != (int)StatusCodeEnum.Success)
             {
-                throw new Exception("wrong password");
+                return new Result<UserInfoDto>(loginResult.StatusCode);
             }
 
-            await StoreProcedure.AddLoginRecord(user.f_id);
+            var jwt = await TokenService.GenerateJwtAsync(loginResult.Result.f_id, loginResult.Result.f_level);
 
-            user = await UserRepository.GetByUserNameAsync(userName);
-
-            var jwt = await TokenService.GenerateJwtAsync(user.f_id, user.f_level);
-
-            return new UserInfoDto
+            var returnData = new Result<UserInfoDto>(loginResult.StatusCode, new UserInfoDto
             {
-                UserId = user.f_id,
-                UserName = user.f_userName,
-                Nickname = user.f_nickname,
+                UserId = loginResult.Result.f_id,
+                UserName = loginResult.Result.f_userName,
+                Nickname = loginResult.Result.f_nickname,
+                Level = loginResult.Result.f_level,
                 Token = jwt
-            };
+            });
+
+            return returnData;
         }
 
         /// <summary>
         /// logout
         /// </summary>
         /// <returns></returns>
-        public Task<bool> LogoutAsync()
+        public Task<Result> LogoutAsync()
         {
             throw new NotImplementedException();
         }

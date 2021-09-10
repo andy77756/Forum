@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -22,12 +23,16 @@ export class LoginComponent implements OnInit {
 
   redirect = '/';
 
+  errorMessage = '';
+
   constructor(private router: Router,
     private route: ActivatedRoute,
     private loginService: LoginService,
-    private registerService: RegisterService) { }
+    private registerService: RegisterService,
+    private translateService: TranslateService) { }
 
   ngOnInit(): void {
+    this.translateService.use('zh-tw');
   }
 
   reverseFlag(){
@@ -45,10 +50,17 @@ export class LoginComponent implements OnInit {
         map((result) => result),
       )
       .subscribe({
-        next: (user) => {
-          console.log(user);
-          localStorage.setItem('token', user.token);
-          this.router.navigateByUrl(this.redirect);
+        next: (data) => {
+          console.log(data);
+          if(data.statusCode != 1){
+            this.errorMessage = 'error.' + data.statusCode.toString();
+          }
+          else{
+            this.errorMessage = '';
+            localStorage.setItem('token', data.returnData.token);
+            this.router.navigateByUrl(this.redirect);
+          }
+
       },
       error: (error: HttpErrorResponse) => {
         alert(error.error.body[0]);
@@ -65,10 +77,16 @@ export class LoginComponent implements OnInit {
         })
       )
       .subscribe({
-        next: (user) => {
-          console.log(user);
-          localStorage.setItem('token', user.token);
-          this.router.navigateByUrl(this.redirect);
+        next: (data) => {
+          console.log(data);
+          if(data.statusCode != 1){
+            this.errorMessage = 'error.' + data.statusCode.toString();
+          }
+          else{
+            this.errorMessage = '';
+            localStorage.setItem('token', data.returnData.token);
+            this.router.navigateByUrl(this.redirect);
+          }
         },
         error: (error: HttpErrorResponse) => {
           alert(error.error.body[0]);

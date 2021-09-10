@@ -1,0 +1,15 @@
+{
+  "error":{
+    "require": "{{itemName}} is reqired ",
+    "invalidMinLength": "Length should more than {{count}}",
+    "invalidPattern": "invalid pattern",
+    "1": "錯誤"
+  },
+  "login":{
+    "userName": "UserName",
+    "pwd": "Password",
+    "nickName": "Nickname",
+    "login": "Login",
+    "register":"Register"
+  }
+}
