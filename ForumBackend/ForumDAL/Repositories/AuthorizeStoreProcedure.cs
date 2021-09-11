@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace ForumDAL.Repositories
 {
-    public class StoreProcedure : IStoreProcedure
+    public class AuthorizeStoreProcedure : IAuthorizeStoreProcedure
     {
         private readonly IConfiguration Configuration;
 
-        public StoreProcedure(IConfiguration configuration)
+        public AuthorizeStoreProcedure(IConfiguration configuration)
         {
             Configuration = configuration;
         }

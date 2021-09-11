@@ -1,14 +1,13 @@
 ﻿using ForumDAL.Models;
-using System;
+using ForumLib.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ForumLib.Services.ForumService
 {
     public interface IForumService
     {
+        public Task<Result<PostDto>> AddPostAsync(int userId, string topic, string content);
         public Task<IEnumerable<PostDto>> GetPostsAsync();
 
         public Task<IEnumerable<PostDto>> GetPostsByFilterAsync(string key);

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ForumDAL.Repositories
 {
-    public interface IStoreProcedure
+    public interface IAuthorizeStoreProcedure
     {
         public Task AddLoginRecord(int userId);
 
