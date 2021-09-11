@@ -1,0 +1,28 @@
+<div class="editor-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1 col-xs-12">
+        <form [formGroup]="form">
+          <fieldset class="form-group">
+            <input formControlName="topic" class="form-control form-control-lg" type="text" placeholder="Topic" />
+          </fieldset>
+          <div *ngIf="form.get('topic')?.invalid">
+            <span *ngIf="form.get('topic')?.errors?.required">標題必填</span>
+          </div>
+          <fieldset class="form-group">
+            <textarea formControlName="content" class="form-control" rows="8" placeholder="Content"></textarea>
+          </fieldset>
+          <div *ngIf="form.get('content')?.invalid">
+            <span *ngIf="form.get('content')?.errors?.required">必填</span>
+            <span *ngIf="form.get('content')?.errors?.minlength">長度錯誤</span>
+          </div>
+          <button
+            [disabled]="form.invalid"
+            (click)="send()" type="submit" class="btn btn-lg btn-primary pull-xs-right">
+            Create Post
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

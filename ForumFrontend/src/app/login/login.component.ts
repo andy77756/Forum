@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
           }
           else{
             this.errorMessage = '';
-            localStorage.setItem('token', data.returnData.token);
+            localStorage.setItem('userInfo', data.returnData.toString());
             this.router.navigateByUrl(this.redirect);
           }
 
@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
           }
           else{
             this.errorMessage = '';
-            localStorage.setItem('token', data.returnData.token);
+            localStorage.setItem('userInfo', data.returnData.toString());
             this.router.navigateByUrl(this.redirect);
           }
         },
