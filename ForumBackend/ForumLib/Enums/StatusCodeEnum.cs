@@ -37,7 +37,7 @@ namespace ForumLib.Enums
         PwdInvalid = -3,
 
         /// <summary>
-        /// 使用者帳號已存在
+        /// 使用者帳號不存在
         /// </summary>
         UserNotExist = -4,
 
@@ -54,6 +54,11 @@ namespace ForumLib.Enums
         /// <summary>
         /// jwt token 時效過期
         /// </summary>
-        TokenExpired = -7
+        TokenExpired = -7,
+
+        /// <summary>
+        /// 發文內容不符規範
+        /// </summary>
+        Postinvalid = -8
     }
 }

@@ -1,28 +1,19 @@
 using ForumDAL.Repositories;
 using ForumLib.Extensions;
-using ForumLib.Helpers;
 using ForumLib.Models;
 using ForumLib.Services.ForumService;
 using ForumLib.Services.LoginService;
 using ForumLib.Services.RegisterService;
 using ForumLib.Services.TokenService;
-using ForumWebApi.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ForumWebApi
 {
@@ -87,7 +78,7 @@ namespace ForumWebApi
             services.AddEncryptHelper(options => Configuration.GetSection("Encrypt").Bind(options));
             services.AddJwtHelper(options => Configuration.GetSection("jwt").Bind(options));
 
-            services.AddSingleton<IStoreProcedure, StoreProcedure>();
+            services.AddSingleton<IAuthorizeStoreProcedure, AuthorizeStoreProcedure>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IReplyRepository, ReplyRepository>();
@@ -95,6 +86,7 @@ namespace ForumWebApi
             services.AddSingleton<ILoginService, LoginService>();
             services.AddSingleton<IRegisterService, RegisterService>();
             services.AddScoped<IForumService, ForumService>();
+            services.AddScoped<IPostStoreProcedure, PostStoreProcedure>();
 
         }
 

@@ -1,7 +1,9 @@
 ﻿using ForumDAL.Models;
 using ForumDAL.Repositories;
+using ForumLib.Extensions;
 using ForumLib.Services.ForumService;
 using ForumWebApi.Filters;
+using ForumWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -48,18 +50,10 @@ namespace ForumWebApi.Controllers
         [TypeFilter(typeof(LevelTwoAuthorizationFilter))]
         [HttpPost]
         [Route("Posts")]
-        public async Task<IActionResult> AddPostAsync(Post post)
+        public async Task<IActionResult> AddPostAsync(PostFrontend post)
         {
-            try
-            {
-                await PostRepository.AddAsync(post);
-                return Created("", null);
-            }
-            catch (Exception)
-            {
-
-                return BadRequest();
-            }
+            var result = await ForumService.AddPostAsync(HttpContext.User.GetID(), post.Topic, post.Content);
+            return Ok(result);
         }
 
         [TypeFilter(typeof(LevelTwoAuthorizationFilter))]

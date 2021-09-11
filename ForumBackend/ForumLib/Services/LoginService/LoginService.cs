@@ -16,7 +16,7 @@ namespace ForumLib.Services.LoginService
     {
         private readonly ITokenService TokenService;
         private readonly EncryptHelper EncryptHelper;
-        private readonly IStoreProcedure StoreProcedure;
+        private readonly IAuthorizeStoreProcedure StoreProcedure;
 
         /// <summary>
         /// constructor
@@ -24,7 +24,7 @@ namespace ForumLib.Services.LoginService
         public LoginService(
             ITokenService tokenService, 
             EncryptHelper encryptHelper,
-            IStoreProcedure storeProcedure)
+            IAuthorizeStoreProcedure storeProcedure)
         {
             TokenService = tokenService;
             EncryptHelper = encryptHelper;

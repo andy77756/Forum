@@ -14,12 +14,12 @@ namespace ForumLib.Services.RegisterService
     {
         private readonly ITokenService TokenService;
         private readonly EncryptHelper EncryptHelper;
-        private readonly IStoreProcedure StoreProcedure;
+        private readonly IAuthorizeStoreProcedure StoreProcedure;
 
         public RegisterService(
             ITokenService tokenService,
             EncryptHelper encryptHelper,
-            IStoreProcedure storeProcedure)
+            IAuthorizeStoreProcedure storeProcedure)
         {
             TokenService = tokenService;
             EncryptHelper = encryptHelper;
