@@ -3,7 +3,17 @@
     "require": "{{itemName}} is reqired ",
     "invalidMinLength": "Length should more than {{count}}",
     "invalidPattern": "invalid pattern",
-    "1": "錯誤"
+    "0": "UserName Exist",
+    "-1":"Invalid UserName",
+    "-2":"Invalid Nickname",
+    "-3":"Invalid Password",
+    "-4":"UserName is not Exist",
+    "-5":"Wrong Password",
+    "-6":"Please Log In",
+    "-7":"Expired, Please Log In Again",
+    "-8":"Permission Deny",
+    "-9":"Invalid Topic",
+    "-10":"Invalid Content"
   },
   "login":{
     "userName": "UserName",

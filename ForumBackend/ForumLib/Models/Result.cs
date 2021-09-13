@@ -7,7 +7,7 @@
 
         public Result(int statusCode, T data = null)
         {
-            StatusCode = statusCode;
+            this.StatusCode = statusCode;
             ReturnData = data;
         }
     }

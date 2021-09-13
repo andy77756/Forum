@@ -1,21 +1,35 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ForumWebApi.Models
+﻿namespace ForumWebApi.Models
 {
     public class PostFrontend
     {
+        /// <summary>
+        /// postId
+        /// </summary>
         public int? Id { get; set; }
+
+        /// <summary>
+        /// user id
+        /// </summary>
         public int? UserId { get; set; }
 
-        [Required]
-        [MinLength(3)]
-        [MaxLength(30)]
+        /// <summary>
+        /// 標題
+        /// </summary>
         public string Topic { get; set; }
 
-        [Required]
-        [MinLength(10)]
+        /// <summary>
+        /// 文章內容
+        /// </summary>
         public string Content { get; set; }
+
+        /// <summary>
+        /// 建立時間
+        /// </summary>
         public string CreateAt { get; set; }
+
+        /// <summary>
+        /// 更新時間
+        /// </summary>
         public string UpdateAt { get; set; }
     }
 }

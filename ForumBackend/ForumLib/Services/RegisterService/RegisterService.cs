@@ -1,11 +1,9 @@
-﻿using ForumDAL.Models;
-using ForumDAL.Repositories;
+﻿using ForumDAL.Repositories;
 using ForumLib.Dtos;
 using ForumLib.Enums;
 using ForumLib.Helpers;
 using ForumLib.Models;
 using ForumLib.Services.TokenService;
-using System;
 using System.Threading.Tasks;
 
 namespace ForumLib.Services.RegisterService
@@ -36,14 +34,14 @@ namespace ForumLib.Services.RegisterService
                 return new Result<UserInfoDto>(registerResult.StatusCode);
             }
 
-            var jwt = await TokenService.GenerateJwtAsync(registerResult.Result.f_id, registerResult.Result.f_level);
+            var jwt = await TokenService.GenerateJwtAsync(registerResult.Result.Id, registerResult.Result.Level);
 
             var result = new Result<UserInfoDto>(registerResult.StatusCode, new UserInfoDto
             {
-                UserId = registerResult.Result.f_id,
+                UserId = registerResult.Result.Id,
                 UserName = userName,
                 Nickname = nickname,
-                Level = registerResult.Result.f_level,
+                Level = registerResult.Result.Level,
                 Token = jwt
             });
 

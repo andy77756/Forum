@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ForumLib.Enums
+﻿namespace ForumLib.Enums
 {
     /// <summary>
     /// 錯誤狀態碼
@@ -57,8 +51,18 @@ namespace ForumLib.Enums
         TokenExpired = -7,
 
         /// <summary>
-        /// 發文內容不符規範
+        /// 權限不足
         /// </summary>
-        Postinvalid = -8
+        PermissionDeny = -8,
+
+        /// <summary>
+        /// 標題不符規範
+        /// </summary>
+        TopicFormatInvalid = -9,
+
+        /// <summary>
+        /// 文章內容不符規範
+        /// </summary>
+        ContentFormatInvalid = -10
     }
 }

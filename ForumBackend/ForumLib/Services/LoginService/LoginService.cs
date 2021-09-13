@@ -5,9 +5,6 @@ using ForumLib.Helpers;
 using ForumLib.Models;
 using ForumLib.Services.TokenService;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ForumLib.Services.LoginService
@@ -46,14 +43,14 @@ namespace ForumLib.Services.LoginService
                 return new Result<UserInfoDto>(loginResult.StatusCode);
             }
 
-            var jwt = await TokenService.GenerateJwtAsync(loginResult.Result.f_id, loginResult.Result.f_level);
+            var jwt = await TokenService.GenerateJwtAsync(loginResult.Result.Id, loginResult.Result.Level);
 
             var returnData = new Result<UserInfoDto>(loginResult.StatusCode, new UserInfoDto
             {
-                UserId = loginResult.Result.f_id,
-                UserName = loginResult.Result.f_userName,
-                Nickname = loginResult.Result.f_nickname,
-                Level = loginResult.Result.f_level,
+                UserId = loginResult.Result.Id,
+                UserName = loginResult.Result.UserName,
+                Nickname = loginResult.Result.Nickname,
+                Level = loginResult.Result.Level,
                 Token = jwt
             });
 

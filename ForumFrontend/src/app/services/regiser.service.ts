@@ -12,14 +12,9 @@ import { ReturnData } from '../interfaces/ReturnData'
 export class RegisterService {
 
   constructor(private httpClient: HttpClient) { }
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Access-Control-Allow-Origin': `${environment.apiUrl}`,
-      'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS'
-    })
-  };
+
   register(registerInfo: RegisterInfo): Observable<ReturnData<UserInfo>>{
 
-    return this.httpClient.post<ReturnData<UserInfo>>(`${environment.apiUrl}/api/Authorize/Register`, registerInfo, this.httpOptions);
+    return this.httpClient.post<ReturnData<UserInfo>>(`${environment.apiUrl}/api/Authorize/Register`, registerInfo);
   }
 }

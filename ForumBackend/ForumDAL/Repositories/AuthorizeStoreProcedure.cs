@@ -1,65 +1,47 @@
 ﻿using Dapper;
 using ForumDAL.Models;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ForumDAL.Repositories
 {
+    /// <summary>
+    /// 驗證SP
+    /// </summary>
     public class AuthorizeStoreProcedure : IAuthorizeStoreProcedure
     {
+        /// <summary>
+        /// Configuration
+        /// </summary>
         private readonly IConfiguration Configuration;
 
+        /// <summary>
+        /// 建構式注入IConfiguration
+        /// </summary>
+        /// <param name="configuration">configuration</param>
         public AuthorizeStoreProcedure(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-        public async Task AddLoginRecord(int userId)
-        {
-            using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
-            {
-                _ = await cn.QueryAsync("spTest", new { userId = userId }, commandType: System.Data.CommandType.StoredProcedure);
-            }
-        }
 
-        public async Task<IEnumerable<PostDto>> GetPostsAsync()
-        {
-            using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
-            {
-                return await cn.QueryAsync<PostDto>("spGetPosts", commandType: System.Data.CommandType.StoredProcedure);
-            }
-        }
-
-        public async Task<IEnumerable<PostDto>> GetPostsAsync(string key)
-        {
-            using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
-            {
-                return await cn.QueryAsync<PostDto>("spGetPosts", new { key = key}, commandType: System.Data.CommandType.StoredProcedure);
-            }
-        }
-
-        public async Task<IEnumerable<ReplyDto>> GetRepliesByPostIdAsync(int postId)
-        {
-            using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
-            {
-                return await cn.QueryAsync<ReplyDto>("spGetReplies", new { postId = postId},commandType: System.Data.CommandType.StoredProcedure);
-            }
-        }
-
-        public async Task<QueryResult<User>> LoginAsync(string userName, string pwd)
+        /// <summary>
+        /// 登入
+        /// </summary>
+        /// <param name="userName">帳號</param>
+        /// <param name="pwd">密碼</param>
+        /// <returns></returns>
+        public async Task<QueryResult<UserDto>> LoginAsync(string userName, string pwd)
         {
             using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
                 var param = new DynamicParameters();
                 param.Add("@userName", userName);
                 param.Add("@pwd", pwd);
-                param.Add("@returnValue", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.ReturnValue);
-                var result = await cn.QuerySingleOrDefaultAsync<User>("spLogin", param, commandType: System.Data.CommandType.StoredProcedure);
-                return new QueryResult<User>
+                param.Add("@returnValue", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
+                var result = await cn.QuerySingleOrDefaultAsync<UserDto>("spLogin", param, commandType: CommandType.StoredProcedure);
+                return new QueryResult<UserDto>
                 {
                     StatusCode = param.Get<int>("@returnValue"),
                     Result = result
@@ -67,7 +49,14 @@ namespace ForumDAL.Repositories
             }
         }
 
-        public async Task<QueryResult<User>> RegisterAsync(string userName, string nickname, string pwd)
+        /// <summary>
+        /// 註冊
+        /// </summary>
+        /// <param name="userName">帳號</param>
+        /// <param name="nickname">暱稱</param>
+        /// <param name="pwd">密碼</param>
+        /// <returns></returns>
+        public async Task<QueryResult<UserDto>> RegisterAsync(string userName, string nickname, string pwd)
         {
             using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
@@ -75,9 +64,9 @@ namespace ForumDAL.Repositories
                 param.Add("@userName", userName);
                 param.Add("@nickname", nickname);
                 param.Add("@pwd", pwd);
-                param.Add("@returnValue", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.ReturnValue);
-                var result = await cn.QuerySingleOrDefaultAsync<User>("spRegister", param, commandType: System.Data.CommandType.StoredProcedure);
-                return new QueryResult<User>
+                param.Add("@returnValue", dbType: System.Data.DbType.Int32, direction: ParameterDirection.ReturnValue);
+                var result = await cn.QuerySingleOrDefaultAsync<UserDto>("spRegister", param, commandType: CommandType.StoredProcedure);
+                return new QueryResult<UserDto>
                 {
                     StatusCode = param.Get<int>("@returnValue"),
                     Result = result

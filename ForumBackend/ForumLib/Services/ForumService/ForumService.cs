@@ -1,28 +1,19 @@
-﻿using Dapper;
-using ForumDAL.Models;
+﻿using ForumDAL.Models;
 using ForumDAL.Repositories;
 using ForumLib.Models;
-using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ForumLib.Services.ForumService
 {
     public class ForumService : IForumService
     {
-        private readonly IAuthorizeStoreProcedure AuthStoreProcedure;
         private readonly IPostStoreProcedure PostStoreProcedure;
 
         public ForumService(
-            IAuthorizeStoreProcedure authStoreProcedure,
             IPostStoreProcedure postStoreProcedure
             )
         {
-            AuthStoreProcedure = authStoreProcedure;
             PostStoreProcedure = postStoreProcedure;
         }
 
@@ -34,17 +25,17 @@ namespace ForumLib.Services.ForumService
 
         public async Task<IEnumerable<PostDto>> GetPostsAsync()
         {
-            return await AuthStoreProcedure.GetPostsAsync();
+            return await PostStoreProcedure.GetPostsAsync();
         }
 
         public async Task<IEnumerable<PostDto>> GetPostsByFilterAsync(string key)
         {
-            return await AuthStoreProcedure.GetPostsAsync(key);
+            return await PostStoreProcedure.GetPostsAsync(key);
         }
 
         public async Task<IEnumerable<ReplyDto>> GetRepliesByPostIdAsync(int id)
         {
-            return await AuthStoreProcedure.GetRepliesByPostIdAsync(id);
+            return await PostStoreProcedure.GetRepliesByPostIdAsync(id);
         }
     }
 }

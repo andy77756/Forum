@@ -20,13 +20,7 @@ export class PostsService {
       const user : UserInfo = JSON.parse(localStorage.getItem('userInfo')?? '');
       this.token = user.token;
     }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': `${environment.apiUrl}`,
-        'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
-        'Authorization': `Bearer ${this.token}`
-      })
-    };
-    return this.httpClient.post<ReturnData<Post>>(`${environment.apiUrl}/api/posts`, post, httpOptions);
+
+    return this.httpClient.post<ReturnData<Post>>(`${environment.apiUrl}/api/Forum/Posts`, post);
   }
 }

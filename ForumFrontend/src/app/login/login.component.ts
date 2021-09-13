@@ -1,6 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { of, throwError } from 'rxjs';
@@ -33,6 +33,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.translateService.use('zh-tw');
+    this.route.queryParamMap.subscribe(queryParamMap => {
+      console.log(queryParamMap.get('redirect'));
+      this.redirect = queryParamMap.get('redirect')??'/';
+    });
   }
 
   reverseFlag(){
@@ -53,11 +57,12 @@ export class LoginComponent implements OnInit {
         next: (data) => {
           console.log(data);
           if(data.statusCode != 1){
-            this.errorMessage = 'error.' + data.statusCode.toString();
+            this.errorMessage = 'error.' + data.statusCode;
           }
           else{
             this.errorMessage = '';
-            localStorage.setItem('userInfo', data.returnData.toString());
+            console.log(JSON.stringify(data.returnData));
+            localStorage.setItem('userInfo',JSON.stringify(data.returnData));
             this.router.navigateByUrl(this.redirect);
           }
 
@@ -80,11 +85,11 @@ export class LoginComponent implements OnInit {
         next: (data) => {
           console.log(data);
           if(data.statusCode != 1){
-            this.errorMessage = 'error.' + data.statusCode.toString();
+            this.errorMessage = 'error.' + data.statusCode;
           }
           else{
             this.errorMessage = '';
-            localStorage.setItem('userInfo', data.returnData.toString());
+            localStorage.setItem('userInfo', JSON.stringify(data.returnData));
             this.router.navigateByUrl(this.redirect);
           }
         },

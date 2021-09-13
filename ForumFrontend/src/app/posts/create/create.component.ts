@@ -46,12 +46,18 @@ export class CreateComponent implements OnInit {
       .subscribe({
         next: (data) => {
           console.log(data);
-          if(data.statusCode != 1){
-            this.errorMessage = 'error.' + data.statusCode.toString();
+          console.log(data.statusCode);
+
+          if(data.statusCode == -6 || data.statusCode == -7){
+            console.log(".....");
+            this.router.navigateByUrl('/login');
           }
-          else{
+          else if(data.statusCode == 1){
             console.log("add success");
             this.router.navigateByUrl('/');
+          }
+          else{
+            this.errorMessage = 'error.' + data.statusCode.toString();
           }
         },
         error: (error: HttpErrorResponse) => {

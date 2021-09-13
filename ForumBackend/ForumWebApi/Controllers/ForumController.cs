@@ -1,12 +1,10 @@
-﻿using ForumDAL.Models;
-using ForumDAL.Repositories;
+﻿using ForumLib.Enums;
 using ForumLib.Extensions;
+using ForumLib.Models;
 using ForumLib.Services.ForumService;
 using ForumWebApi.Filters;
 using ForumWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ForumWebApi.Controllers
@@ -16,35 +14,11 @@ namespace ForumWebApi.Controllers
     public class ForumController : ControllerBase
     {
         private readonly IForumService ForumService;
-        private readonly IPostRepository PostRepository;
-        private readonly IReplyRepository ReplyRepository;
 
         public ForumController(
-            IForumService forumService, 
-            IPostRepository postRepository,
-            IReplyRepository replyRepository)
+            IForumService forumService)
         {
             ForumService = forumService;
-            PostRepository = postRepository;
-            ReplyRepository = replyRepository;
-        }
-
-        [HttpGet]
-        [Route("Posts")]
-        public async Task<IEnumerable<PostDto>> GetPostsAsync(string key)
-        {
-            if (!String.IsNullOrWhiteSpace(key))
-            {
-                return await ForumService.GetPostsByFilterAsync(key);
-            }
-            return await ForumService.GetPostsAsync();
-        }
-
-        [HttpGet]
-        [Route("Replies")]
-        public async Task<IEnumerable<ReplyDto>> GetRepliesAsync(int postId)
-        {
-            return await ForumService.GetRepliesByPostIdAsync(postId);
         }
 
         [TypeFilter(typeof(LevelTwoAuthorizationFilter))]
@@ -52,61 +26,23 @@ namespace ForumWebApi.Controllers
         [Route("Posts")]
         public async Task<IActionResult> AddPostAsync(PostFrontend post)
         {
+            if (
+                string.IsNullOrEmpty(post.Topic) ||
+                post.Topic.Length < 3 ||
+                post.Topic.Length > 30)
+            {
+                return Ok(new Result((int)StatusCodeEnum.TopicFormatInvalid));
+            }
+
+            if (
+                string.IsNullOrEmpty(post.Content) ||
+                post.Content.Length < 10)
+            {
+                return Ok(new Result((int)StatusCodeEnum.ContentFormatInvalid));
+            }
+
             var result = await ForumService.AddPostAsync(HttpContext.User.GetID(), post.Topic, post.Content);
             return Ok(result);
-        }
-
-        [TypeFilter(typeof(LevelTwoAuthorizationFilter))]
-        [HttpPut]
-        [Route("Posts")]
-        public async Task<IActionResult> UpdatePostAsync(Post post)
-        {
-            post.f_updateAt = DateTime.Now;
-            try
-            {
-                await PostRepository.UpdateAsync(post);
-                return Ok();
-            }
-            catch (Exception)
-            {
-
-                return BadRequest();
-            }
-        }
-
-        [TypeFilter(typeof(LevelOneAuthorizationFilter))]
-        [HttpPost]
-        [Route("Replies")]
-        public async Task<IActionResult> AddReplyAsync(Reply reply)
-        {
-            try
-            {
-                await ReplyRepository.AddAsync(reply);
-                return Created("", null);
-            }
-            catch (Exception)
-            {
-
-                return BadRequest();
-            }
-        }
-
-        [TypeFilter(typeof(LevelOneAuthorizationFilter))]
-        [HttpPut]
-        [Route("Replies")]
-        public async Task<IActionResult> UpdateReplyAsync(Reply reply)
-        {
-            reply.f_updateAt = DateTime.Now;
-            try
-            {
-                await ReplyRepository.UpdateAsync(reply);
-                return Ok();
-            }
-            catch (Exception)
-            {
-
-                return BadRequest();
-            }
         }
     }
 }
