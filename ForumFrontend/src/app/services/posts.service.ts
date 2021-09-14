@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserInfo } from '../interfaces/UserInfo';
 import { Observable } from 'rxjs';
@@ -10,17 +10,18 @@ import { ReturnData } from '../interfaces/ReturnData';
   providedIn: 'root'
 })
 export class PostsService {
-  token = '';
 
   constructor(private httpClient: HttpClient) { }
 
   addPost(post: Post): Observable<ReturnData<Post>> {
-
-    if(localStorage.getItem('userInfo') != null){
-      const user : UserInfo = JSON.parse(localStorage.getItem('userInfo')?? '');
-      this.token = user.token;
-    }
-
     return this.httpClient.post<ReturnData<Post>>(`${environment.apiUrl}/api/Forum/Posts`, post);
+  }
+
+  getPost(key: string, pageIndex: Number): Observable<ReturnData<Post[]>> {
+    let params = new HttpParams();
+    params.set('key', key);
+    params.set('pageIndex', pageIndex.toString());
+    return this.httpClient.get<ReturnData<Post[]>>(
+      `${environment.apiUrl}/api/Forum`, { params: params});
   }
 }

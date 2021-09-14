@@ -1,4 +1,10 @@
+import { map, catchError } from 'rxjs/operators';
+import { PostsService } from 'src/app/services/posts.service';
+import { Post } from './../interfaces/Post';
 import { Component, OnInit } from '@angular/core';
+import { throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-posts',
@@ -7,9 +13,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostsComponent implements OnInit {
 
-  constructor() { }
+  posts: Post[] = [];
+
+  constructor(
+    private postService: PostsService) { }
 
   ngOnInit(): void {
+    this.postService
+      .getPost('', 1)
+      .pipe(
+        catchError(error => {
+          return throwError(error);
+        }),
+        map((result) => result),
+      )
+      .subscribe({
+        next: (data) => {
+          this.posts = data.returnData
+        },
+        error: (error: HttpErrorResponse) => {
+          alert(error.error.body[0]);
+        }
+      })
   }
 
 }

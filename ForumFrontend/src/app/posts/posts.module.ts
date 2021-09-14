@@ -6,6 +6,7 @@ import { PostsComponent } from './posts.component';
 import { CreateComponent } from './create/create.component';
 import { PostComponent } from './post/post.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     PostsRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule.forChild()
   ]
 })
 export class PostsModule { }

@@ -52,11 +52,20 @@ namespace ForumDAL.Repositories
         /// 取得文章列表
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<PostDto>> GetPostsAsync()
+        public async Task<QueryResult<IEnumerable<PostDto>>> GetPostsAsync(int? pageIndex = null, int? pageSize = null)
         {
             using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
-            {
-                return await cn.QueryAsync<PostDto>("spGetPosts", commandType: System.Data.CommandType.StoredProcedure);
+            {           
+                var result = await cn.QueryAsync<PostDto>(
+                    "spGetPosts", 
+                    new { pageIndex = pageIndex?? 1, pageSize = pageSize??10},
+                    commandType: System.Data.CommandType.StoredProcedure);
+
+                return new QueryResult<IEnumerable<PostDto>>
+                {
+                    StatusCode = 1,
+                    Result = result
+                };
             }
         }
 
@@ -65,11 +74,20 @@ namespace ForumDAL.Repositories
         /// </summary>
         /// <param name="key">關鍵字</param>
         /// <returns></returns>
-        public async Task<IEnumerable<PostDto>> GetPostsAsync(string key)
+        public async Task<QueryResult<IEnumerable<PostDto>>> GetPostsAsync(string key, int? pageIndex = null, int? pageSize = null)
         {
             using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
-                return await cn.QueryAsync<PostDto>("spGetPosts", new { key = key }, commandType: System.Data.CommandType.StoredProcedure);
+                var result = await cn.QueryAsync<PostDto>(
+                    "spGetPosts", 
+                    new { key = key, pageIndex = pageIndex??1, pageSize = pageSize??10 }, 
+                    commandType: System.Data.CommandType.StoredProcedure);
+
+                return new QueryResult<IEnumerable<PostDto>>
+                {
+                    StatusCode = 1,
+                    Result = result
+                };
             }
         }
 

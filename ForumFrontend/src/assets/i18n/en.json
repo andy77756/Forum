@@ -21,5 +21,10 @@
     "nickName": "Nickname",
     "login": "Login",
     "register":"Register"
+  },
+  "posts":{
+    "topic": "Topic",
+    "postUserName":"Post User",
+    "replyUserName":"Reply User"
   }
 }

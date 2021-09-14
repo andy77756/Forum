@@ -21,5 +21,10 @@
     "nickName": "暱稱",
     "login": "登入",
     "register":"註冊"
+  },
+  "posts":{
+    "topic": "標題",
+    "postUserName":"發文",
+    "replyUserName":"回覆"
   }
 }

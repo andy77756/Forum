@@ -16,17 +16,19 @@ namespace ForumDAL.Repositories
         public Task<QueryResult<PostDto>> AddPostAsync(int userId, string topic, string content);
 
         /// <summary>
-        /// 取得所有文章列表
+        /// 取得所有文章列表, 預設page index=1, page size = 10
         /// </summary>
+        /// <param name="pageIndex">頁數</param>
+        /// <param name="pageSize">每頁數量</param>
         /// <returns></returns>
-        public Task<IEnumerable<PostDto>> GetPostsAsync();
+        public Task<QueryResult<IEnumerable<PostDto>>> GetPostsAsync(int? pageIndex = null, int? pageSize = null);
 
         /// <summary>
         /// 取得篩選後文章列表
         /// </summary>
         /// <param name="key">關鍵字</param>
         /// <returns></returns>
-        public Task<IEnumerable<PostDto>> GetPostsAsync(string key);
+        public Task<QueryResult<IEnumerable<PostDto>>> GetPostsAsync(string key, int? pageIndex = null, int? pageSize = null);
 
         /// <summary>
         /// 取得文章回覆內容

@@ -8,9 +8,9 @@ namespace ForumLib.Services.ForumService
     public interface IForumService
     {
         public Task<Result<PostDto>> AddPostAsync(int userId, string topic, string content);
-        public Task<IEnumerable<PostDto>> GetPostsAsync();
+        public Task<Result<IEnumerable<PostDto>>> GetPostsAsync(int? pageIndex = null, int? pageSize = null);
 
-        public Task<IEnumerable<PostDto>> GetPostsByFilterAsync(string key);
+        public Task<Result<IEnumerable<PostDto>>> GetPostsByFilterAsync(string key, int? pageIndex = null, int? pageSize = null);
 
         public Task<IEnumerable<ReplyDto>> GetRepliesByPostIdAsync(int id);
 

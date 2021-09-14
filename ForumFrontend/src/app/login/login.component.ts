@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
     private translateService: TranslateService) { }
 
   ngOnInit(): void {
-    this.translateService.use('zh-tw');
     this.route.queryParamMap.subscribe(queryParamMap => {
       console.log(queryParamMap.get('redirect'));
       this.redirect = queryParamMap.get('redirect')??'/';
@@ -66,10 +65,10 @@ export class LoginComponent implements OnInit {
             this.router.navigateByUrl(this.redirect);
           }
 
-      },
-      error: (error: HttpErrorResponse) => {
-        alert(error.error.body[0]);
-      }
+        },
+        error: (error: HttpErrorResponse) => {
+          alert(error.error.body[0]);
+        }
     });
   }
 

@@ -1,1 +1,37 @@
-<p>posts works!</p>
+<div class="home-page">
+  <div class="container page">
+    <div class="row">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th>{{'posts.topic' | translate }}</th>
+            <th>
+              {{'posts.postUserName' | translate }}
+            </th>
+            <th>
+              {{'posts.replyUserName' | translate }}
+            </th>
+          </tr>
+        </tbody>
+        <tbody *ngFor="let item of posts">
+          <tr>
+            <th>
+              <a [routerLink]="['/post', item.postid]" routerLinkActive="router-link-active" >
+                <p>
+                  {{item.topic}}
+                </p>
+              </a>
+            </th>
+            <th>
+              <p class="userName">{{item.postUserName}}</p>
+              <p class="userName datetime">{{item.postAt}}</p>
+            </th>
+            <th>
+              <p class="userName">{{item.replyUserName}}</p>
+              <p class="userName datetime">{{item.replyDt}}</p>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

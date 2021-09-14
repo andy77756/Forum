@@ -23,14 +23,18 @@ namespace ForumLib.Services.ForumService
             return new Result<PostDto>(result.StatusCode);
         }
 
-        public async Task<IEnumerable<PostDto>> GetPostsAsync()
+        public async Task<Result<IEnumerable<PostDto>>> GetPostsAsync(int? pageIndex = null, int? pageSize = null)
         {
-            return await PostStoreProcedure.GetPostsAsync();
+            var result = await PostStoreProcedure.GetPostsAsync(pageIndex, pageSize);
+
+            return new Result<IEnumerable<PostDto>>(result.StatusCode, result.Result);
         }
 
-        public async Task<IEnumerable<PostDto>> GetPostsByFilterAsync(string key)
+        public async Task<Result<IEnumerable<PostDto>>> GetPostsByFilterAsync(string key, int? pageIndex = null, int? pageSize = null)
         {
-            return await PostStoreProcedure.GetPostsAsync(key);
+            var result = await PostStoreProcedure.GetPostsAsync(key, pageIndex, pageSize);
+
+            return new Result<IEnumerable<PostDto>>(result.StatusCode, result.Result);
         }
 
         public async Task<IEnumerable<ReplyDto>> GetRepliesByPostIdAsync(int id)
