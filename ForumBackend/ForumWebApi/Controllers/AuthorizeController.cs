@@ -27,12 +27,14 @@ namespace ForumWebApi.Controllers
         [Route("Register")]
         public async Task<IActionResult> RegisterAsync(RegisterInfo registerInfo)
         {
-            var nameRex = new Regex("^.[A-Za-z0-9]+$");
+            var userNameRex = new Regex("^[a-zA-Z][a-zA-Z0-9_-]{5,30}$");
+            var nicknameRex = new Regex(@"^[\u4E00-\u9FA5A-Za-z0-9_]{1,10}$");
+            var pwdRex = new Regex(@"^(?=.*[a-z])[^\u4e00-\u9fa5+]{6,20}$");
             if (
                 string.IsNullOrEmpty(registerInfo.UserName) || 
                 registerInfo.UserName.Length > 30 || 
                 registerInfo.UserName.Length < 5 || 
-                !nameRex.Match(registerInfo.UserName).Success)
+                !userNameRex.Match(registerInfo.UserName).Success)
             {
                 return Ok(new Result((int)StatusCodeEnum.UserNameInValid));
             }
@@ -41,7 +43,7 @@ namespace ForumWebApi.Controllers
                 string.IsNullOrEmpty(registerInfo.Nickname) ||
                 registerInfo.Nickname.Length > 10 ||
                 registerInfo.Nickname.Length < 1 ||
-                !nameRex.Match(registerInfo.Nickname).Success)
+                !nicknameRex.Match(registerInfo.Nickname).Success)
             {
                 return Ok(new Result((int)StatusCodeEnum.NicknameInvalid));
             }
@@ -49,7 +51,8 @@ namespace ForumWebApi.Controllers
             if (
                 string.IsNullOrEmpty(registerInfo.Pwd) || 
                 registerInfo.Pwd.Length > 20 || 
-                registerInfo.Pwd.Length < 6)
+                registerInfo.Pwd.Length < 6 ||
+                !pwdRex.Match(registerInfo.Pwd).Success)
             {
                 return Ok(new Result((int)StatusCodeEnum.PwdInvalid));
             }
@@ -62,7 +65,8 @@ namespace ForumWebApi.Controllers
         [Route("Login")]
         public async Task<IActionResult> LoginAsync(LoginInfo loginInfo)
         {
-            var userNameRex = new Regex("^.[A-Za-z0-9]+$");
+            var userNameRex = new Regex("^[a-zA-Z][a-zA-Z0-9_-]{5,30}$");
+            var pwdRex = new Regex(@"^(?=.*[a-z])[^\u4e00-\u9fa5+]{6,20}$");
             if (
                 string.IsNullOrEmpty(loginInfo.UserName) || 
                 loginInfo.UserName.Length > 30 || 
@@ -75,7 +79,8 @@ namespace ForumWebApi.Controllers
             if (
                 string.IsNullOrEmpty(loginInfo.Pwd) || 
                 loginInfo.Pwd.Length > 20 || 
-                loginInfo.Pwd.Length < 6)
+                loginInfo.Pwd.Length < 6 ||
+                !pwdRex.Match(loginInfo.Pwd).Success)
             {
                 return Ok(new Result((int)StatusCodeEnum.PwdInvalid));
             }

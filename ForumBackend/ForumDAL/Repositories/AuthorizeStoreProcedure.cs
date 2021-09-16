@@ -32,7 +32,7 @@ namespace ForumDAL.Repositories
         /// <param name="userName">帳號</param>
         /// <param name="pwd">密碼</param>
         /// <returns></returns>
-        public async Task<QueryResult<UserDto>> LoginAsync(string userName, string pwd)
+        public async Task<QueryResult<User>> LoginAsync(string userName, string pwd)
         {
             using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
@@ -40,8 +40,8 @@ namespace ForumDAL.Repositories
                 param.Add("@userName", userName);
                 param.Add("@pwd", pwd);
                 param.Add("@returnValue", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
-                var result = await cn.QuerySingleOrDefaultAsync<UserDto>("spLogin", param, commandType: CommandType.StoredProcedure);
-                return new QueryResult<UserDto>
+                var result = await cn.QuerySingleOrDefaultAsync<User>("spLogin", param, commandType: CommandType.StoredProcedure);
+                return new QueryResult<User>
                 {
                     StatusCode = param.Get<int>("@returnValue"),
                     Result = result
@@ -56,7 +56,7 @@ namespace ForumDAL.Repositories
         /// <param name="nickname">暱稱</param>
         /// <param name="pwd">密碼</param>
         /// <returns></returns>
-        public async Task<QueryResult<UserDto>> RegisterAsync(string userName, string nickname, string pwd)
+        public async Task<QueryResult<User>> RegisterAsync(string userName, string nickname, string pwd)
         {
             using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
@@ -65,8 +65,8 @@ namespace ForumDAL.Repositories
                 param.Add("@nickname", nickname);
                 param.Add("@pwd", pwd);
                 param.Add("@returnValue", dbType: System.Data.DbType.Int32, direction: ParameterDirection.ReturnValue);
-                var result = await cn.QuerySingleOrDefaultAsync<UserDto>("spRegister", param, commandType: CommandType.StoredProcedure);
-                return new QueryResult<UserDto>
+                var result = await cn.QuerySingleOrDefaultAsync<User>("spRegister", param, commandType: CommandType.StoredProcedure);
+                return new QueryResult<User>
                 {
                     StatusCode = param.Get<int>("@returnValue"),
                     Result = result

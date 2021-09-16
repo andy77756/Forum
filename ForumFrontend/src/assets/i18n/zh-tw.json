@@ -15,16 +15,31 @@
     "-9":"標題不符規範",
     "-10":"文章內容不符規範"
   },
+  "nav":{
+    "post": "新增貼文",
+    "login": "登入",
+    "logout": "登出"
+  },
+  "dialog":{
+    "header":"系統提示",
+    "confirm":"確定"
+  },
   "login":{
     "userName": "帳號",
     "pwd": "密碼",
-    "nickName": "暱稱",
+    "nickname": "暱稱",
     "login": "登入",
     "register":"註冊"
   },
   "posts":{
     "topic": "標題",
     "postUserName":"發文",
-    "replyUserName":"回覆"
+    "replyUserName":"回覆",
+    "replyCount": "回覆數量"
+  },
+  "create":{
+    "topic": "標題",
+    "content": "內容",
+    "createBtn": "發表文章"
   }
 }

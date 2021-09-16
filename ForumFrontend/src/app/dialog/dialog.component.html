@@ -1,0 +1,16 @@
+<div class="jw-modal">
+  <div class="jw-modal-body">
+    <div class="jw-modal-header">
+      <h1>系統提示</h1>
+    </div>
+    <div class="jw-modal-content">
+      <p>
+        {{ errorCode | translate}}
+      </p>
+    </div>
+    <div class="jw-modal-footer">
+      <button (click)="close()">Close</button>
+    </div>
+  </div>
+</div>
+<div class="jw-modal-background"></div>

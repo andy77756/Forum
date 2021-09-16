@@ -12,7 +12,7 @@ namespace ForumDAL.Repositories
         /// <param name="nickname">暱稱</param>
         /// <param name="pwd">密碼</param>
         /// <returns></returns>
-        public Task<QueryResult<UserDto>> RegisterAsync(string userName, string nickname, string pwd);
+        public Task<QueryResult<User>> RegisterAsync(string userName, string nickname, string pwd);
 
         /// <summary>
         /// 登入
@@ -20,7 +20,7 @@ namespace ForumDAL.Repositories
         /// <param name="userName">帳號</param>
         /// <param name="pwd">密碼</param>
         /// <returns></returns>
-        public Task<QueryResult<UserDto>> LoginAsync(string userName, string pwd);
+        public Task<QueryResult<User>> LoginAsync(string userName, string pwd);
 
         
     }

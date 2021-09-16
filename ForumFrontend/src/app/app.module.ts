@@ -8,6 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { LayoutModule } from './layout/layout.module';
+import { DialogComponent } from './dialog/dialog.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 export function createTanslateLoder(http: HttpClient){
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -15,12 +17,14 @@ export function createTanslateLoder(http: HttpClient){
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     LayoutModule,
+    OverlayModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -37,6 +41,7 @@ export function createTanslateLoder(http: HttpClient){
       multi: true
     }
   ],
+  entryComponents:[DialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

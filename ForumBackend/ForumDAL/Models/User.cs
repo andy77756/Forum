@@ -2,7 +2,7 @@
 
 namespace ForumDAL.Models
 {
-    public class UserDto
+    public class User
     {
         /// <summary>
         /// user id

@@ -1,3 +1,4 @@
+import { UtilityService } from './../services/utility.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
@@ -23,15 +24,15 @@ export class LoginComponent implements OnInit {
 
   redirect = '/';
 
-  errorMessage = '';
-
   constructor(private router: Router,
     private route: ActivatedRoute,
     private loginService: LoginService,
     private registerService: RegisterService,
-    private translateService: TranslateService) { }
+    private translateService: TranslateService,
+    private utilityService: UtilityService) { }
 
   ngOnInit(): void {
+    this.translateService.use('zh-tw');
     this.route.queryParamMap.subscribe(queryParamMap => {
       console.log(queryParamMap.get('redirect'));
       this.redirect = queryParamMap.get('redirect')??'/';
@@ -43,7 +44,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    console.log("login");
     this.loginService
       .login(this.userLogin)
       .pipe(
@@ -56,10 +56,9 @@ export class LoginComponent implements OnInit {
         next: (data) => {
           console.log(data);
           if(data.statusCode != 1){
-            this.errorMessage = 'error.' + data.statusCode;
+            this.utilityService.openDialog(data.statusCode.toString());
           }
           else{
-            this.errorMessage = '';
             console.log(JSON.stringify(data.returnData));
             localStorage.setItem('userInfo',JSON.stringify(data.returnData));
             this.router.navigateByUrl(this.redirect);
@@ -84,10 +83,9 @@ export class LoginComponent implements OnInit {
         next: (data) => {
           console.log(data);
           if(data.statusCode != 1){
-            this.errorMessage = 'error.' + data.statusCode;
+            this.utilityService.openDialog(data.statusCode.toString());
           }
           else{
-            this.errorMessage = '';
             localStorage.setItem('userInfo', JSON.stringify(data.returnData));
             this.router.navigateByUrl(this.redirect);
           }

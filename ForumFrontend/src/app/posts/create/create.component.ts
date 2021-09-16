@@ -1,3 +1,4 @@
+import { UtilityService } from './../../services/utility.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, Validators} from '@angular/forms';
@@ -24,12 +25,11 @@ export class CreateComponent implements OnInit {
     ]),
   });
 
-  errorMessage = '';
-
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private postService: PostsService) { }
+    private postService: PostsService,
+    private utilityService: UtilityService) { }
 
   ngOnInit(): void {
   }
@@ -49,15 +49,13 @@ export class CreateComponent implements OnInit {
           console.log(data.statusCode);
 
           if(data.statusCode == -6 || data.statusCode == -7){
-            console.log(".....");
             this.router.navigateByUrl('/login');
           }
           else if(data.statusCode == 1){
-            console.log("add success");
             this.router.navigateByUrl('/');
           }
           else{
-            this.errorMessage = 'error.' + data.statusCode.toString();
+            this.utilityService.openDialog(data.statusCode.toString());
           }
         },
         error: (error: HttpErrorResponse) => {

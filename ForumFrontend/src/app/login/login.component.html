@@ -16,7 +16,7 @@
               required
               minlength="5"
               maxlength="30"
-              pattern="^.[A-Za-z0-9]+$"
+              pattern="^[a-zA-Z][a-zA-Z0-9_-]{5,30}$"
               #userName="ngModel">
             <div *ngIf="userName.invalid">
               <span *ngIf="userName['errors']?.required && userName.touched">
@@ -40,10 +40,14 @@
               placeholder="nickname"
               required
               maxlength="10"
+              pattern="^[\u4E00-\u9FA5A-Za-z0-9_]{1,10}$"
               #nickname="ngModel">
             <div *ngIf="nickname.invalid">
               <span *ngIf="nickname['errors']?.required && nickname.touched">
                 {{'error.require' | translate :{'itemName' : 'login.nickname' | translate } }}
+              </span>
+              <span *ngIf="nickname['errors']?.pattern">
+                {{'error.invalidPattern' | translate }}
               </span>
             </div>
           </fieldset>
@@ -53,6 +57,7 @@
               required
               maxlength="20"
               minlength="6"
+              pattern="^(?=.*[a-z])[^\u4e00-\u9fa5+]{6,20}$"
               #pwd="ngModel"
               [(ngModel)]="userLogin.pwd" name="pwd" class="form-control form-control-lg" type="password" placeholder="Password">
             <div *ngIf="pwd.invalid">
@@ -61,6 +66,9 @@
               </span>
               <span *ngIf="pwd['errors']?.minlength">
                 {{'error.invalidMinLength' | translate :{'count' : 6} }}
+              </span>
+              <span *ngIf="pwd['errors']?.pattern">
+                {{'error.invalidPattern' | translate  }}
               </span>
             </div>
           </fieldset>
@@ -85,4 +93,3 @@
     </div>
   </div>
 </div>
-{{errorMessage | translate}}

@@ -30,7 +30,7 @@ namespace ForumDAL.Repositories
         /// <param name="topic">標題</param>
         /// <param name="content">文章內容</param>
         /// <returns></returns>
-        public async Task<QueryResult<PostDto>> AddPostAsync(int userId, string topic, string content)
+        public async Task<QueryResult<Post>> AddPostAsync(int userId, string topic, string content)
         {
             using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
@@ -39,8 +39,8 @@ namespace ForumDAL.Repositories
                 param.Add("@topic", topic);
                 param.Add("@content", content);
                 param.Add("@returnValue", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.ReturnValue);
-                var result = await cn.QueryAsync<PostDto>("spAddPost", param,commandType: System.Data.CommandType.StoredProcedure);
-                return new QueryResult<PostDto>
+                var result = await cn.QueryAsync<Post>("spAddPost", param,commandType: System.Data.CommandType.StoredProcedure);
+                return new QueryResult<Post>
                 {
                     StatusCode = param.Get<int>("@returnValue"),
                     Result = null
@@ -52,16 +52,16 @@ namespace ForumDAL.Repositories
         /// 取得文章列表
         /// </summary>
         /// <returns></returns>
-        public async Task<QueryResult<IEnumerable<PostDto>>> GetPostsAsync(int? pageIndex = null, int? pageSize = null)
+        public async Task<QueryResult<IEnumerable<Post>>> GetPostsAsync(int? pageIndex = null, int? pageSize = null)
         {
             using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {           
-                var result = await cn.QueryAsync<PostDto>(
+                var result = await cn.QueryAsync<Post>(
                     "spGetPosts", 
                     new { pageIndex = pageIndex?? 1, pageSize = pageSize??10},
                     commandType: System.Data.CommandType.StoredProcedure);
 
-                return new QueryResult<IEnumerable<PostDto>>
+                return new QueryResult<IEnumerable<Post>>
                 {
                     StatusCode = 1,
                     Result = result
@@ -74,16 +74,16 @@ namespace ForumDAL.Repositories
         /// </summary>
         /// <param name="key">關鍵字</param>
         /// <returns></returns>
-        public async Task<QueryResult<IEnumerable<PostDto>>> GetPostsAsync(string key, int? pageIndex = null, int? pageSize = null)
+        public async Task<QueryResult<IEnumerable<Post>>> GetPostsAsync(string key, int? pageIndex = null, int? pageSize = null)
         {
             using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
-                var result = await cn.QueryAsync<PostDto>(
+                var result = await cn.QueryAsync<Post>(
                     "spGetPosts", 
                     new { key = key, pageIndex = pageIndex??1, pageSize = pageSize??10 }, 
                     commandType: System.Data.CommandType.StoredProcedure);
 
-                return new QueryResult<IEnumerable<PostDto>>
+                return new QueryResult<IEnumerable<Post>>
                 {
                     StatusCode = 1,
                     Result = result
@@ -96,11 +96,24 @@ namespace ForumDAL.Repositories
         /// </summary>
         /// <param name="postId">文章id</param>
         /// <returns></returns>
-        public async Task<IEnumerable<ReplyDto>> GetRepliesByPostIdAsync(int postId)
+        public async Task<QueryResult<Replys>> GetRepliesByPostIdAsync(int postId, int? pageIndex = null, int? pageSize = null)
         {
             using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
-                return await cn.QueryAsync<ReplyDto>("spGetReplies", new { postId = postId }, commandType: System.Data.CommandType.StoredProcedure);
+                var reader = await cn.QueryMultipleAsync(
+                                        "spGetReplies", 
+                                        new { postId = postId, pageIndex = pageIndex ?? 1, pageSize = pageSize ?? 10 }, 
+                                        commandType: System.Data.CommandType.StoredProcedure);
+
+                return new QueryResult<Replys>
+                {
+                    StatusCode = 1,
+                    Result = new Replys
+                    {
+                        Post = await reader.ReadSingleAsync<Post>(),
+                        Replies = await reader.ReadAsync<Reply>()
+                    }
+                };
             }
         }
     }

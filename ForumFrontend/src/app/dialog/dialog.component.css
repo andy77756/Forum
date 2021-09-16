@@ -1,0 +1,112 @@
+app-modal{
+  display: none;
+}
+
+body.jw-modal-open {
+  /* body overflow is hidden to hide main scrollbar when modal window is open */
+  overflow: hidden;
+}
+
+.jw-modal-background {
+  /* modal background fixed across whole screen */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  /* semi-transparent black  */
+  background-color: rgba(90, 82, 82, 0.39);
+  opacity: 0.75;
+
+  /* z-index must be below .jw-modal and above everything else  */
+  z-index: 900;
+}
+
+.jw-modal {
+  /* modal container fixed across whole screen */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  /* z-index must be higher than .jw-modal-background */
+  z-index: 1000;
+
+  /* enables scrolling for tall modals */
+  overflow: auto;
+}
+
+.jw-modal-body {
+  width: 50%;
+  height: 50%;
+  /* margin exposes part of the modal background */
+  margin: 10% 25%;
+  box-shadow: 3px 3px 9px  rgb(63, 63, 61);
+  display: flex;
+  flex-direction: column;
+  border-radius: 30px;
+}
+
+.jw-modal-header h1 {
+  margin: 0;
+  text-align: center;
+}
+
+.jw-modal-body .jw-modal-header{
+  height: 50x;
+  margin: 0;
+  border: 0;
+  border-bottom: 5px;
+  background-color: burlywood;
+  border-style: solid;
+  text-align: center;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+.jw-modal-body .jw-modal-content{
+  flex-grow: 1;
+  margin: 0;
+  border: 0;
+  border-bottom: 5px;
+  border-style: solid;
+  text-align: center;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+}
+.jw-modal-body .jw-modal-content p{
+  width: 70%;
+  margin: auto;
+  font-size: 3rem;
+}
+.jw-modal-body .jw-modal-footer{
+  height: 50px;
+  display: flex;
+  justify-content: right;
+  margin: 0 0;
+  background-color: burlywood;
+  text-align: left;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.jw-modal-footer button{
+  margin-right: 10%;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 10%;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.jw-modal-footer button:hover{
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}

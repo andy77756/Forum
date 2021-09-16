@@ -15,6 +15,15 @@
     "-9":"Invalid Topic",
     "-10":"Invalid Content"
   },
+  "nav":{
+    "post": "New Post",
+    "login": "Log In",
+    "logout": "Log Out"
+  },
+  "dialog":{
+    "header":"System Information",
+    "confirm":"Confirm"
+  },
   "login":{
     "userName": "UserName",
     "pwd": "Password",
@@ -25,6 +34,12 @@
   "posts":{
     "topic": "Topic",
     "postUserName":"Post User",
-    "replyUserName":"Reply User"
+    "replyUserName":"Reply User",
+    "replyCount": "Reply Count"
+  },
+  "create":{
+    "topic": "Topic",
+    "content": "Content",
+    "createBtn": "Create Post"
   }
 }

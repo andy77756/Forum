@@ -9,6 +9,9 @@
               {{'posts.postUserName' | translate }}
             </th>
             <th>
+              {{ 'posts.replyCount' | translate }}
+            </th>
+            <th>
               {{'posts.replyUserName' | translate }}
             </th>
           </tr>
@@ -25,6 +28,9 @@
             <th>
               <p class="userName">{{item.postUserName}}</p>
               <p class="userName datetime">{{item.postAt}}</p>
+            </th>
+            <th>
+              <p>{{item.replyCount}}</p>
             </th>
             <th>
               <p class="userName">{{item.replyUserName}}</p>

@@ -5,4 +5,5 @@ export interface Post{
   postAt: string;
   replyUserName: string;
   replyDt: string;
+  replyCount: Number;
 }

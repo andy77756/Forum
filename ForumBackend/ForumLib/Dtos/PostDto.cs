@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ForumDAL.Models
+namespace ForumLib.Dtos
 {
-    public class Post
+    public class PostDto
     {
         public int? Postid { get; set; }
 
@@ -10,13 +14,12 @@ namespace ForumDAL.Models
 
         public string PostUserName { get; set; }
 
-        public DateTime? PostAt { get; set; }
+        public string PostAt { get; set; }
 
         public string ReplyUserName { get; set; }
 
-        public DateTime? ReplyDt { get; set; }
+        public string ReplyDt { get; set; }
 
         public int ReplyCount { get; set; }
-
     }
 }

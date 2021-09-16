@@ -79,8 +79,6 @@ namespace ForumWebApi
             services.AddJwtHelper(options => Configuration.GetSection("jwt").Bind(options));
 
             services.AddSingleton<IAuthorizeStoreProcedure, AuthorizeStoreProcedure>();
-            services.AddScoped<IPostRepository, PostRepository>();
-            services.AddScoped<IReplyRepository, ReplyRepository>();
             services.AddSingleton<ITokenService, TokenService>();
             services.AddSingleton<ILoginService, LoginService>();
             services.AddSingleton<IRegisterService, RegisterService>();
