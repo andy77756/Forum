@@ -1,0 +1,73 @@
+.post-list p {
+  margin: 0;
+}
+
+.post-list{
+  /* modal container fixed across whole screen */
+  z-index: 1000;
+  overflow: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.post-content{
+  margin-left: 25%;
+  margin-top: 1rem;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: 0px 0px 3px black;
+}
+
+.post-header{
+  padding: 1rem 0px;
+  margin: 0 auto;
+  border-bottom: 1px black solid;
+}
+
+.post-content div{
+  width: 95%;
+  display: flex;
+
+}
+
+.post-content .post-body{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.post-body div{
+  padding-top: .7rem;
+}
+
+.userInfo{
+  border-bottom: 1px black dashed;
+}
+
+.content{
+  border-bottom: 1px black solid;
+}
+
+.reply{
+  width: 80%;
+  margin: auto;
+	display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+textarea{
+  width: 80%;
+  height: 10rem;
+  margin: 3rem 3rem;
+}
+
+button{
+  margin-left: 3rem;
+}
+
+
+

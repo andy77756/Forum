@@ -12,13 +12,15 @@ namespace ForumLib.Dtos
 
         public string Topic { get; set; }
 
+        public string Content { get; set; }
+
         public string PostUserName { get; set; }
 
         public string PostAt { get; set; }
 
         public string ReplyUserName { get; set; }
 
-        public string ReplyDt { get; set; }
+        public string ReplyAt { get; set; }
 
         public int ReplyCount { get; set; }
     }

@@ -36,5 +36,14 @@ namespace ForumDAL.Repositories
         /// <param name="postId">文章id</param>
         /// <returns></returns>
         public Task<QueryResult<Replys>> GetRepliesByPostIdAsync(int postId, int? pageIndex = null, int? pageSize = null);
+
+        /// <summary>
+        /// 新增回覆
+        /// </summary>
+        /// <param name="postId">文章id</param>
+        /// <param name="userId">發文者userId</param>
+        /// <param name="content">回覆內容</param>
+        /// <returns></returns>
+        public Task<QueryResult<Reply>> AddReplyAsync(int postId, int userId, string content);
     }
 }

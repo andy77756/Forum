@@ -3,6 +3,7 @@
     "require": "{{itemName}} is reqired ",
     "invalidMinLength": "Length should more than {{count}}",
     "invalidPattern": "invalid pattern",
+    "1":"Success",
     "0": "UserName Exist",
     "-1":"Invalid UserName",
     "-2":"Invalid Nickname",
@@ -13,7 +14,9 @@
     "-7":"Expired, Please Log In Again",
     "-8":"Permission Deny",
     "-9":"Invalid Topic",
-    "-10":"Invalid Content"
+    "-10":"Invalid Content",
+    "-11":"Post doesn't exist",
+    "-12":"Reply content coul't be null"
   },
   "nav":{
     "post": "New Post",

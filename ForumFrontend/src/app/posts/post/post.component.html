@@ -1,1 +1,43 @@
-<p>post works!</p>
+<div class="col-md-10 col-md-offset-1 col-xs-12">
+  <div class="post-content">
+    <div class="post-header">
+      <p>{{post.topic}}</p>
+    </div>
+    <div class="post-body">
+      <div class="userInfo">
+        <p>{{post.postUserName}} 發表於 {{post.postAt}}</p>
+      </div>
+      <div class="content">
+        <p>
+          {{post.content}}
+        </p>
+      </div>
+    </div>
+    <div *ngFor="let reply of replies" class="post-body">
+      <div class="userInfo">
+        <p>{{reply.nickname}} 回覆於 {{reply.createAt}} </p>
+      </div>
+      <div class="content">
+        <p>
+          {{reply.content}}
+        </p>
+      </div>
+    </div>
+    <div class="post-body">
+      <form  #form="ngForm">
+        <fieldset class="form-group">
+          <textarea
+            class="form-control"
+            name="content"
+            [(ngModel)]="reply.content"
+            #content="ngModel"
+            [placeholder]="placeHolder"
+            required
+            [disabled]="disabledReply">
+          </textarea>
+        </fieldset>
+        <button [disabled]="form.invalid" class="btn btn-primary" (click)="addReply()">回覆</button>
+      </form>
+    </div>
+  </div>
+</div>

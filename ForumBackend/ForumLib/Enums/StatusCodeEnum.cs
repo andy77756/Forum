@@ -63,6 +63,16 @@
         /// <summary>
         /// 文章內容不符規範
         /// </summary>
-        ContentFormatInvalid = -10
+        ContentFormatInvalid = -10,
+
+        /// <summary>
+        /// 文章不存在
+        /// </summary>
+        PostNotExist = -11,
+
+        /// <summary>
+        /// 回覆內容不符規範
+        /// </summary>
+        ReplyContentInvalid = -12
     }
 }

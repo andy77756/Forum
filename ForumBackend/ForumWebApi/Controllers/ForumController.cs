@@ -1,4 +1,5 @@
-﻿using ForumLib.Enums;
+﻿using ForumDAL.Models;
+using ForumLib.Enums;
 using ForumLib.Extensions;
 using ForumLib.Models;
 using ForumLib.Services.ForumService;
@@ -52,6 +53,7 @@ namespace ForumWebApi.Controllers
         /// <param name="pageIndex">頁數</param>
         /// <returns></returns>
         [HttpGet]
+        [Route("Posts")]
         public async Task<IActionResult> GetPost(string key, int? pageIndex)
         {
             if (string.IsNullOrWhiteSpace(key))
@@ -60,6 +62,25 @@ namespace ForumWebApi.Controllers
             }
 
             return Ok(await ForumService.GetPostsByFilterAsync(key, pageIndex: pageIndex));
+        }
+
+        [HttpGet]
+        [Route("Reply")]
+        public async Task<IActionResult> GetReplies(int postId, int? pageIndex)
+        {
+            return Ok(await ForumService.GetRepliesByPostIdAsync(postId, pageIndex: pageIndex));
+        }
+
+        [TypeFilter(typeof(LevelOneAuthorizationFilter))]
+        [HttpPost]
+        [Route("Reply")]
+        public async Task<IActionResult> AddReplyAsync(ReplyFrontend reply)
+        {
+            if (string.IsNullOrWhiteSpace(reply.Content))
+            {
+                return Ok(new Result((int)StatusCodeEnum.ReplyContentInvalid));
+            }
+            return Ok(await ForumService.AddReplyAsync(reply.PostId, reply.UserId, reply.Content));
         }
     }
 }

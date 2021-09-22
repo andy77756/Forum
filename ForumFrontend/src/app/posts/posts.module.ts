@@ -5,7 +5,7 @@ import { PostsRoutingModule } from './posts-routing.module';
 import { PostsComponent } from './posts.component';
 import { CreateComponent } from './create/create.component';
 import { PostComponent } from './post/post.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 
@@ -19,6 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     PostsRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     TranslateModule.forChild()
   ]
 })
