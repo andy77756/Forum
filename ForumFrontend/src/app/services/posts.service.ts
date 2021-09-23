@@ -16,6 +16,10 @@ export class PostsService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getTest(url: string): Observable<string>{
+    return this.httpClient.get<string>(url);
+  }
+
   addPost(post: Post): Observable<ReturnData<Post>> {
     return this.httpClient.post<ReturnData<Post>>(`${environment.apiUrl}/api/Forum/Posts`, post);
   }

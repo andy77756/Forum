@@ -7,6 +7,7 @@ import { CreateComponent } from './create/create.component';
 import { PostComponent } from './post/post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { ShareModule } from '../share/share.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
     PostsRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    ShareModule,
     TranslateModule.forChild()
   ]
 })

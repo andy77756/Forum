@@ -1,7 +1,11 @@
-<nav class="navbar navbar-dark bg-primary">
+<nav class="header header-primary">
   <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']" routerLinkActive="router-link-active" >Forum</a>
-      <ul class="nav navbar-nav pull-xs-right">
+    <div class="navbar">
+      <div class="navbar-brand">
+        <a  [routerLink]="['/']" routerLinkActive="router-link-active" >Forum</a>
+      </div>
+      <div class="navbar-nav">
+        <ul >
           <li class="nav-item" routerLinkActive="active">
               <a class="nav-link" [routerLink]="['/create']">
                   <i class="ion-compose"></i>&nbsp;{{"nav.post" | translate}}
@@ -12,6 +16,8 @@
               <a class="nav-link" *ngIf="token != ''" (click)="logout()" >{{"nav.logout" | translate}}</a>
           </li>
       </ul>
+      </div>
+    </div>
   </div>
 </nav>
 

@@ -16,6 +16,11 @@ import { RegisterService } from '../services/regiser.service';
 export class LoginComponent implements OnInit {
   userLogin = {
     userName: '',
+    pwd: '',
+  };
+
+  userRegister = {
+    userName: '',
     nickname:'',
     pwd: '',
   };
@@ -48,6 +53,7 @@ export class LoginComponent implements OnInit {
       .login(this.userLogin)
       .pipe(
         catchError(error => {
+          this.utilityService.openDialog("-9");
           return throwError(error);
         }),
         map((result) => result),
@@ -73,7 +79,7 @@ export class LoginComponent implements OnInit {
 
   register(){
     this.registerService
-      .register(this.userLogin)
+      .register(this.userRegister)
       .pipe(
         catchError(error => {
           return throwError(error);

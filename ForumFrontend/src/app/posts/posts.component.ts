@@ -15,6 +15,8 @@ export class PostsComponent implements OnInit {
 
   posts: Post[] = [];
 
+  test = '';
+
   constructor(
     private postService: PostsService) { }
 
@@ -34,7 +36,25 @@ export class PostsComponent implements OnInit {
         error: (error: HttpErrorResponse) => {
           alert(error.error.body[0]);
         }
-      })
+      });
   }
 
+  doSearch($event: string){
+    this.postService
+      .getPost($event, 1)
+      .pipe(
+        catchError(error => {
+          return throwError(error);
+        }),
+        map((result) => result),
+      )
+      .subscribe({
+        next: (data) => {
+          this.posts = data.returnData
+        },
+        error: (error: HttpErrorResponse) => {
+          alert(error.error.body[0]);
+        }
+      });
+  }
 }

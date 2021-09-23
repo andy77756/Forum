@@ -1,6 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-dialog',
@@ -10,10 +11,10 @@ import { Component, OnInit } from '@angular/core';
 export class DialogComponent implements OnInit {
 
   errorCode = '';
+  windowClose = faWindowClose;
 
   constructor(
     private overlayRef: OverlayRef,
-    private translaeSerive: TranslateService,
     private errCode: String) {
       this.errorCode = 'error.' + errCode.toString();
     }

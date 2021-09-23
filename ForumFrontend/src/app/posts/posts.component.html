@@ -1,43 +1,55 @@
 <div class="home-page">
   <div class="container page">
+    <app-search (search) = "doSearch($event)"></app-search>
     <div class="row">
-      <table class="table table-bordered">
-        <tbody>
+      <table class="table table-primary table-bordered">
+        <thead>
           <tr>
-            <th>{{'posts.topic' | translate }}</th>
-            <th>
+            <td class="firstField">
+              <p>
+                {{'posts.topic' | translate }}
+              </p>
+            </td>
+            <td class="notFirstField">
+              <p>
               {{'posts.postUserName' | translate }}
-            </th>
-            <th>
+              </p>
+            </td>
+            <td class="notFirstField">
+              <p>
               {{ 'posts.replyCount' | translate }}
-            </th>
-            <th>
+              </p>
+            </td>
+            <td class="notFirstField">
+              <p>
               {{'posts.replyUserName' | translate }}
-            </th>
+              </p>
+            </td>
           </tr>
-        </tbody>
+        </thead>
         <tbody *ngFor="let item of posts">
           <tr>
-            <th>
+            <td class="firstField">
               <a [routerLink]="['/post', item.postid]" routerLinkActive="router-link-active" >
                 <p>
                   {{item.topic}}
                 </p>
               </a>
-            </th>
-            <th>
+            </td>
+            <td>
               <p class="userName">{{item.postUserName}}</p>
               <p class="userName datetime">{{item.postAt}}</p>
-            </th>
-            <th>
+            </td>
+            <td>
               <p>{{item.replyCount}}</p>
-            </th>
-            <th>
+            </td>
+            <td>
               <p class="userName">{{item.replyUserName}}</p>
               <p class="userName datetime">{{item.replyAt}}</p>
-            </th>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+</div>

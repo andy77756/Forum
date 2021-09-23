@@ -10,6 +10,9 @@ import { AuthInterceptor } from './auth.interceptor';
 import { LayoutModule } from './layout/layout.module';
 import { DialogComponent } from './dialog/dialog.component';
 import { OverlayModule } from '@angular/cdk/overlay';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { ShareModule } from './share/share.module';
+
 
 export function createTanslateLoder(http: HttpClient){
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -25,6 +28,7 @@ export function createTanslateLoder(http: HttpClient){
     AppRoutingModule,
     LayoutModule,
     OverlayModule,
+    FontAwesomeModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -32,7 +36,8 @@ export function createTanslateLoder(http: HttpClient){
         useFactory: (createTanslateLoder),
         deps: [HttpClient]
       }
-    })
+    }),
+    ShareModule
   ],
   providers: [
     {
@@ -41,7 +46,9 @@ export function createTanslateLoder(http: HttpClient){
       multi: true
     }
   ],
-  entryComponents:[DialogComponent],
+  entryComponents:[
+    DialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

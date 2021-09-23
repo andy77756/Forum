@@ -9,3 +9,38 @@
 a {
   color: blue !important;
 }
+
+.row{
+  width: 70%;
+}
+
+.tabs{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tabs-radio{
+  display: none;
+}
+
+.tabs-label{
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.tabs-content{
+  order: 1;
+  display: none;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.tabs-radio:checked + .tabs-label {
+  font-weight: bold;
+  color: #009578;
+  border-bottom: 2px solid #009578;
+}
+
+.tabs-radio:checked + .tabs-label + .tabs-content {
+  display: initial;
+}
