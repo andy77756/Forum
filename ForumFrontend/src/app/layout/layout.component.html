@@ -8,12 +8,20 @@
         <ul >
           <li class="nav-item" routerLinkActive="active">
               <a class="nav-link" [routerLink]="['/create']">
-                  <i class="ion-compose"></i>&nbsp;{{"nav.post" | translate}}
+                {{"nav.post" | translate}}
               </a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" *ngIf="token == '' " [routerLink]="['/login']" routerLinkActive="router-link-active" >{{"nav.login" | translate}}</a>
-              <a class="nav-link" *ngIf="token != ''" (click)="logout()" >{{"nav.logout" | translate}}</a>
+              <a class="nav-link" *ngIf="userInfo.token == '' " [routerLink]="['/login']" routerLinkActive="router-link-active" >{{"nav.login" | translate}}</a>
+              <a class="nav-link" *ngIf="userInfo.token != ''" (click)="logout()" >{{"nav.logout" | translate}}</a>
+          </li>
+          <li class="nav-item dropdown" *ngIf="userInfo.token != ''">
+            <a class="nav-link">{{userInfo.nickname}}</a>
+            <fa-icon [icon]="caretDown"></fa-icon>
+            <div class="dropdown-content">
+              <a class="nav-link">level:{{userInfo.level}}</a>
+              <a class="nav-link" (click)="logout()" >{{"nav.logout" | translate}}</a>
+            </div>
           </li>
       </ul>
       </div>

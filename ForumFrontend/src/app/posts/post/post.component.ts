@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 import { throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-post',
@@ -17,6 +18,8 @@ import { Content } from '@angular/compiler/src/render3/r3_ast';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
+
+  arrowLeft = faArrowLeft;
 
   post: Post = {
     postid: 0,
@@ -109,6 +112,10 @@ export class PostComponent implements OnInit {
           alert(error.error.body[0]);
         }
       });
+  }
+
+  back(){
+    this.router.navigateByUrl('/');
   }
 
 }

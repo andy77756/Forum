@@ -1,55 +1,75 @@
-<div class="home-page">
-  <div class="container page">
-    <app-search (search) = "doSearch($event)"></app-search>
-    <div class="row">
-      <table class="table table-primary table-bordered">
-        <thead>
-          <tr>
-            <td class="firstField">
-              <p>
-                {{'posts.topic' | translate }}
-              </p>
-            </td>
-            <td class="notFirstField">
-              <p>
+<div class="container">
+  <app-search (search)="doSearch($event)"></app-search>
+  <div class="row">
+    <table class="table table-primary table-bordered">
+      <thead>
+        <tr>
+          <td class="firstField">
+            <p>
+              {{'posts.topic' | translate }}
+            </p>
+          </td>
+          <td class="notFirstField">
+            <p>
               {{'posts.postUserName' | translate }}
-              </p>
-            </td>
-            <td class="notFirstField">
-              <p>
+            </p>
+          </td>
+          <td class="notFirstField">
+            <p>
               {{ 'posts.replyCount' | translate }}
-              </p>
-            </td>
-            <td class="notFirstField">
-              <p>
+            </p>
+          </td>
+          <td class="notFirstField">
+            <p>
               {{'posts.replyUserName' | translate }}
+            </p>
+          </td>
+        </tr>
+      </thead>
+      <!-- <tbody>
+        <tr>
+          <td class="firstField">
+            <a routerLinkActive="router-link-active">
+              <p>
+                sfsfsefefse
               </p>
-            </td>
-          </tr>
-        </thead>
-        <tbody *ngFor="let item of posts">
-          <tr>
-            <td class="firstField">
-              <a [routerLink]="['/post', item.postid]" routerLinkActive="router-link-active" >
-                <p>
-                  {{item.topic}}
-                </p>
-              </a>
-            </td>
-            <td>
-              <p class="userName">{{item.postUserName}}</p>
-              <p class="userName datetime">{{item.postAt}}</p>
-            </td>
-            <td>
-              <p>{{item.replyCount}}</p>
-            </td>
-            <td>
-              <p class="userName">{{item.replyUserName}}</p>
-              <p class="userName datetime">{{item.replyAt}}</p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+            </a>
+          </td>
+          <td>
+            <p class="userName">aabbaabb</p>
+            <p class="userName datetime">2021-01-01 11:11</p>
+          </td>
+          <td>
+            <p>5</p>
+          </td>
+          <td>
+            <p class="userName">aabbaabb</p>
+            <p class="userName datetime">2021-01-01 11:11</p>
+          </td>
+        </tr>
+      </tbody> -->
+      <tbody *ngFor="let item of posts">
+        <tr>
+          <td class="firstField">
+            <a [routerLink]="['/post', item.postid]" routerLinkActive="router-link-active">
+              <p>
+                {{item.topic}}
+              </p>
+            </a>
+          </td>
+          <td>
+            <p class="userName">{{item.postUserName}}</p>
+            <p class="userName datetime">{{item.postAt}}</p>
+          </td>
+          <td>
+            <p>{{item.replyCount}}</p>
+          </td>
+          <td>
+            <p class="userName">{{item.replyUserName}}</p>
+            <p class="userName datetime">{{item.replyAt}}</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

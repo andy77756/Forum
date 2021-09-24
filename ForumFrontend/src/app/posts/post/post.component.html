@@ -1,43 +1,58 @@
-<div class="col-md-10 col-md-offset-1 col-xs-12">
-  <div class="post-content">
+<div class="container">
+  <div class="row">
+    <button class="btn" (click)="back()">
+      <fa-icon [icon]="arrowLeft" size="2x" [style]="{'color':'blue'}"></fa-icon>
+    </button>
+  </div>
+  <div *ngIf="post.topic != ''">
     <div class="post-header">
-      <p>{{post.topic}}</p>
+      <h1 class="h6">{{post.topic}}</h1>
     </div>
-    <div class="post-body">
-      <div class="userInfo">
-        <p>{{post.postUserName}} 發表於 {{post.postAt}}</p>
+    <div class="post-content">
+      <div class="userInfo post-userInfo">
+        <div>
+          <p>{{post.postUserName}}</p>
+        </div>
+        <div>
+          <p>{{"post.postAt" | translate}}</p>
+          <p>{{post.postAt}}</p>
+        </div>
       </div>
-      <div class="content">
+      <div class="post-body">
         <p>
           {{post.content}}
         </p>
       </div>
     </div>
-    <div *ngFor="let reply of replies" class="post-body">
-      <div class="userInfo">
-        <p>{{reply.nickname}} 回覆於 {{reply.createAt}} </p>
-      </div>
-      <div class="content">
+
+    <div class="reply-content" *ngFor="let reply of replies">
+      <div class="reply-body">
         <p>
           {{reply.content}}
         </p>
       </div>
+      <div class="userInfo reply-userInfo">
+        <div>
+          <p>{{reply.nickname}}</p>
+        </div>
+        <div>
+          <p>回覆於</p>
+          <p>{{reply.createAt}}</p>
+        </div>
+      </div>
     </div>
-    <div class="post-body">
-      <form  #form="ngForm">
-        <fieldset class="form-group">
-          <textarea
-            class="form-control"
-            name="content"
-            [(ngModel)]="reply.content"
-            #content="ngModel"
-            [placeholder]="placeHolder"
-            required
-            [disabled]="disabledReply">
-          </textarea>
-        </fieldset>
-        <button [disabled]="form.invalid" class="btn btn-primary" (click)="addReply()">回覆</button>
-      </form>
+    <div class="reply-edit">
+      <div class="">
+        <form #form="ngForm">
+          <fieldset class="form-group">
+            <textarea class="form-control" name="content" [(ngModel)]="reply.content" #content="ngModel"
+              [placeholder]="placeHolder" required [disabled]="disabledReply">
+            </textarea>
+          </fieldset>
+          <button [disabled]="form.invalid" class="btn btn-primary" (click)="addReply()">回覆</button>
+        </form>
+      </div>
     </div>
   </div>
+
 </div>

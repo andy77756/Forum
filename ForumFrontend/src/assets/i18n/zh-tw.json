@@ -2,6 +2,7 @@
   "error":{
     "require": "{{itemName}} 為必填欄位 ",
     "invalidMinLength": "長度應大於{{count}}",
+    "invalidMaxLength": "長度應小於{{count}}",
     "invalidPattern": "不符合規則",
     "1":"成功",
     "0": "使用者帳號已存在",
@@ -43,6 +44,11 @@
   "create":{
     "topic": "標題",
     "content": "內容",
-    "createBtn": "發表文章"
+    "createBtn": "發表文章",
+    "cancelBtn": "取消"
+  },
+  "post":{
+    "postAt":"發表於",
+    "replyAt":"回覆於"
   }
 }

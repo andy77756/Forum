@@ -1,54 +1,59 @@
-.post-list p {
-  margin: 0;
-}
-
-.post-list{
-  /* modal container fixed across whole screen */
-  z-index: 1000;
-  overflow: auto;
-  width: 100%;
-  display: flex;
-  align-items: center;
+.post-header{
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 5px;
+  border-bottom: 1px black solid;
 }
 
 .post-content{
-  margin-left: 25%;
-  margin-top: 1rem;
-  width: 50%;
+  max-width: 100%;
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  box-shadow: 0px 0px 3px black;
-}
-
-.post-header{
-  padding: 1rem 0px;
-  margin: 0 auto;
-  border-bottom: 1px black solid;
-}
-
-.post-content div{
-  width: 95%;
-  display: flex;
-
-}
-
-.post-content .post-body{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.post-body div{
-  padding-top: .7rem;
+  flex-direction: row;
+  margin-bottom: 50px;
 }
 
 .userInfo{
-  border-bottom: 1px black dashed;
+  padding: 10px;
+  min-height: 100px;
+  min-width: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 50%;
 }
 
-.content{
-  border-bottom: 1px black solid;
+.post-userInfo{
+  background-color: rgb(171, 240, 175);
+  margin-right: 5px;
+}
+
+.post-body{
+  max-width: 50%;
+  border-radius: 5px;
+  padding: 5px;
+  line-height: 1.5;
+  background-color: rgb(171, 240, 175);
+}
+
+.reply-content{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.reply-userInfo{
+  background-color: rgb(238, 227, 164);
+  margin-right: 5px;
+}
+
+.reply-body{
+  max-width: 50%;
+  padding: 5px;
+  line-height: 1.5;
+  border-radius: 5px;
+  background-color: rgb(238, 227, 164);
 }
 
 .reply{
@@ -58,16 +63,3 @@
   justify-content: center;
   align-items: center;
 }
-
-textarea{
-  width: 80%;
-  height: 10rem;
-  margin: 3rem 3rem;
-}
-
-button{
-  margin-left: 3rem;
-}
-
-
-

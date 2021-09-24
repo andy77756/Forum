@@ -1,37 +1,53 @@
 <div class="editor-page">
   <div class="container page">
     <div class="row">
-      <div class="col-md-10 col-md-offset-1 col-xs-12">
-        <form [formGroup]="form">
-          <fieldset class="form-group">
-            <input formControlName="topic" class="form-control form-control-lg" type="text" placeholder="{{ 'create.topic' |translate}}" />
-          </fieldset>
-          <div *ngIf="form.get('topic')?.invalid">
-            <span *ngIf="form.get('topic')?.errors?.required && form.get('topic')?.touched">
-              {{'error.require' | translate :{'itemName' : 'create.topic' | translate } }}
-            </span>
-            <span *ngIf="form.get('topic')?.errors?.minlength && form.get('topic')?.touched">
-              {{'error.invalidMinLength' | translate :{'count' : 3} }}
-            </span>
-          </div>
-          <fieldset class="form-group">
-            <textarea formControlName="content" class="form-control" rows="8" placeholder="{{ 'create.content' |translate}}"></textarea>
-          </fieldset>
-          <div *ngIf="form.get('content')?.invalid">
-            <span *ngIf="form.get('content')?.errors?.required && form.get('content')?.touched">
-              {{'error.require' | translate :{'itemName' : 'create.content' | translate } }}
-            </span>
-            <span *ngIf="form.get('content')?.errors?.minlength && form.get('content')?.touched">
-              {{'error.invalidMinLength' | translate :{'count' : 10} }}
-            </span>
-          </div>
-          <button
-            [disabled]="form.invalid"
-            (click)="send()" type="submit" class="btn btn-lg btn-primary pull-xs-right">
+      <button class="btn" (click)="cancel()">
+        <fa-icon [icon]="arrowLeft" size="2x" [style]="{'color':'blue'}"></fa-icon>
+      </button>
+    </div>
+    <div class="row">
+      <form [formGroup]="form">
+        <fieldset class="form-control">
+          <input
+            [ngClass]="{'invalid': form.get('topic')?.touched && form.get('topic')?.invalid}"
+            formControlName="topic"
+            class="form-control form-control-lg"
+            type="text"
+            placeholder="{{ 'create.topic' |translate}}" />
+        </fieldset>
+        <div *ngIf="form.get('topic')?.invalid">
+          <span *ngIf="form.get('topic')?.errors?.required && form.get('topic')?.touched">
+            {{'error.require' | translate :{'itemName' : 'create.topic' | translate } }}
+          </span>
+          <span *ngIf="form.get('topic')?.errors?.maxlength && form.get('topic')?.touched">
+            {{'error.invalidMaxLength' | translate :{'count' : 30} }}
+          </span>
+        </div>
+        <fieldset class="form-control">
+          <textarea
+            [ngClass]="{'invalid': form.get('content')?.touched && form.get('content')?.invalid}"
+            formControlName="content"
+            class="form-control"
+            rows="8"
+            placeholder="{{ 'create.content' |translate}}"></textarea>
+        </fieldset>
+        <div *ngIf="form.get('content')?.invalid">
+          <span *ngIf="form.get('content')?.errors?.required && form.get('content')?.touched">
+            {{'error.require' | translate :{'itemName' : 'create.content' | translate } }}
+          </span>
+          <span *ngIf="form.get('content')?.errors?.minlength && form.get('content')?.touched">
+            {{'error.invalidMinLength' | translate :{'count' : 10} }}
+          </span>
+        </div>
+        <div class="form-control-right">
+          <button [disabled]="form.invalid" (click)="send()" type="submit" class="btn btn-primary">
             {{"create.createBtn" | translate}}
           </button>
-        </form>
-      </div>
+          <button class="btn btn-alert" (click)="cancel()">
+            {{"create.cancelBtn" | translate}}
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

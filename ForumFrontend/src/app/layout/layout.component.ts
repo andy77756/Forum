@@ -2,6 +2,7 @@ import { UtilityService } from './../services/utility.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserInfo } from '../interfaces/UserInfo';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-layout',
@@ -10,21 +11,33 @@ import { UserInfo } from '../interfaces/UserInfo';
 })
 export class LayoutComponent implements OnInit {
 
-  token = '';
+  caretDown = faCaretDown;
+  userInfo : UserInfo = {
+    token: '',
+    userId: 0,
+    userName: '',
+    nickname: '',
+    level: 0
+  }
   constructor(private router: Router, private utilityService: UtilityService) { }
 
   ngOnInit(): void {
     if(localStorage.getItem('userInfo') != null){
       const user : UserInfo = JSON.parse(localStorage.getItem('userInfo')?? '');
-      this.token = user.token;
+      this.userInfo = user;
     }
   }
 
   logout(){
     /* TODO Call Web API */
     localStorage.clear();
-    this.token = '';
-    this.utilityService.openDialog("log out");
+    this.userInfo = {
+      token: '',
+      userId: 0,
+      userName: '',
+      nickname: '',
+      level: 0
+    };
     this.router.navigateByUrl('/');
   }
 

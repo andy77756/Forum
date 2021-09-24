@@ -54,7 +54,7 @@ table {
 
 .container{
   margin: 0 auto;
-  width: 1200px;
+  max-width: 1200px;
 }
 
 .wrap{
@@ -77,6 +77,7 @@ div{
 p{
   width: 100%;
   word-wrap:break-word;
+  padding: 5px;
 }
 
 a{
@@ -153,6 +154,8 @@ a{
   cursor: not-allowed;
 }
 
+
+
 /* navbar */
 .navbar{
   display: flex;
@@ -165,9 +168,13 @@ a{
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-weight: bolder;
+  font-size: xx-large;
 }
 
 .navbar-nav{
+  display: flex;
+  align-items: center;
 }
 
 .navbar-nav ul{
@@ -244,6 +251,20 @@ a{
   background-color: rgb(52, 109, 184);
 }
 
+tbody tr:hover{
+  background-color: rgb(238, 240, 125);
+}
+
+tbody a{
+  color:rgb(132, 58, 161);
+  font-size: xx-large;
+}
+
+tbody a p:hover{
+  color:rgb(107, 173, 235);
+  cursor: pointer;
+}
+
 /*form*/
 
 form{
@@ -262,7 +283,7 @@ form{
   justify-content: right;
 }
 
-.form-control input{
+.form-control input, textarea{
   width: 100%;
   font-size: 1.5rem;
   line-height: 1.5;
@@ -271,4 +292,5 @@ form{
   border-radius: 5px;
   border: 1px solid #ced4da;
 }
+
 

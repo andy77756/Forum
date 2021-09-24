@@ -2,6 +2,7 @@
   "error":{
     "require": "{{itemName}} is reqired ",
     "invalidMinLength": "Length should more than {{count}}",
+    "invalidMaxLength": "Length should less than {{count}}",
     "invalidPattern": "invalid pattern",
     "1":"Success",
     "0": "UserName Exist",
@@ -43,6 +44,11 @@
   "create":{
     "topic": "Topic",
     "content": "Content",
-    "createBtn": "Create Post"
+    "createBtn": "Create Post",
+    "cancelBtn": "Cancel"
+  },
+  "post":{
+    "postAt":"Post At",
+    "replyAt":"Reply At"
   }
 }

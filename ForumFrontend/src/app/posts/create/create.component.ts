@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { PostsService } from 'src/app/services/posts.service';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-create',
@@ -14,10 +15,12 @@ import { PostsService } from 'src/app/services/posts.service';
 })
 export class CreateComponent implements OnInit {
 
+  arrowLeft = faArrowLeft;
+
   form = this.formBuilder.group({
     topic: this.formBuilder.control('', [
       Validators.required,
-      Validators.minLength(3)
+      Validators.maxLength(30)
     ]),
     content: this.formBuilder.control('', [
       Validators.required,
@@ -35,7 +38,6 @@ export class CreateComponent implements OnInit {
   }
 
   send(){
-    console.log(this.form.value);
     this.postService
       .addPost(this.form.value)
       .pipe(
@@ -62,6 +64,10 @@ export class CreateComponent implements OnInit {
           alert(error.error.body[0]);
         }
       });
+  }
+
+  cancel(){
+    this.router.navigateByUrl('/');
   }
 
 }

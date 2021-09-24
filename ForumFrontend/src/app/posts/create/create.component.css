@@ -1,0 +1,12 @@
+/* form valid class */
+.valid {
+  border: 2px solid #42A948; /* green */
+}
+
+.invalid {
+  border: 2px solid #a94442; /* red */
+}
+
+form button{
+  margin-left: 10px;
+}

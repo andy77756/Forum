@@ -10,10 +10,6 @@ a {
   color: blue !important;
 }
 
-.row{
-  width: 70%;
-}
-
 .tabs{
   display: flex;
   flex-wrap: wrap;

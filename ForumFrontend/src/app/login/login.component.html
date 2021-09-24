@@ -9,7 +9,7 @@
             <fieldset class="form-control">
               <input
                 [ngClass]="{'init': loginUserName.untouched ,'valid': loginUserName.touched && loginUserName.valid , 'invalid' : loginUserName.touched && loginUserName.invalid}"
-                [(ngModel)]="userLogin.userName" name="loginUserName" class="form-control form-control-lg" type="text"
+                [(ngModel)]="userLogin.userName" name="loginUserName"  type="text"
                 placeholder="userName" required minlength="5" maxlength="30" pattern="^[a-zA-Z][a-zA-Z0-9_-]{5,30}$"
                 #loginUserName="ngModel">
               <div *ngIf="loginUserName.invalid">
@@ -33,7 +33,6 @@
                 #loginPwd="ngModel"
                 [(ngModel)]="userLogin.pwd"
                 name="loginPwd"
-                class="form-control form-control-lg"
                 type="password"
                 placeholder="Password">
               <div *ngIf="loginPwd.invalid">
@@ -64,7 +63,7 @@
             <fieldset class="form-control">
               <input
                 [ngClass]="{'init': userName.untouched ,'valid': userName.touched && userName.valid , 'invalid' : userName.touched && userName.invalid}"
-                [(ngModel)]="userRegister.userName" name="userName" class="form-control form-control-lg" type="text"
+                [(ngModel)]="userRegister.userName" name="userName" type="text"
                 placeholder="userName" required minlength="5" maxlength="30" pattern="^[a-zA-Z][a-zA-Z0-9_-]{5,30}$"
                 #userName="ngModel">
               <div *ngIf="userName.invalid">
@@ -82,7 +81,7 @@
             <fieldset class="form-control">
               <input
                 [ngClass]="{'init': nickname.untouched ,'valid': nickname.touched && nickname.valid , 'invalid' : nickname.touched && nickname.invalid}"
-                [(ngModel)]="userRegister.nickname" name="nickname" class="form-control form-control-lg" type="text"
+                [(ngModel)]="userRegister.nickname" name="nickname" type="text"
                 placeholder="nickname" required maxlength="10" pattern="^[\u4E00-\u9FA5A-Za-z0-9_]{1,10}$"
                 #nickname="ngModel">
               <div *ngIf="nickname.invalid">
@@ -98,7 +97,7 @@
               <input
                 [ngClass]="{'init': pwd.untouched ,'valid': pwd.touched && pwd.valid , 'invalid' : pwd.touched && pwd.invalid}"
                 required maxlength="20" minlength="6" pattern="^(?=.*[a-z])[^\u4e00-\u9fa5+]{6,20}$" #pwd="ngModel"
-                [(ngModel)]="userRegister.pwd" name="pwd" class="form-control form-control-lg" type="password"
+                [(ngModel)]="userRegister.pwd" name="pwd" type="password"
                 placeholder="Password">
               <div *ngIf="pwd.invalid">
                 <span *ngIf="pwd['errors']?.required && pwd.touched">

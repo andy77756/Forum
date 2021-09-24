@@ -8,6 +8,7 @@ import { PostComponent } from './post/post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ShareModule } from '../share/share.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { ShareModule } from '../share/share.module';
     ReactiveFormsModule,
     FormsModule,
     ShareModule,
+    FontAwesomeModule,
     TranslateModule.forChild()
   ]
 })

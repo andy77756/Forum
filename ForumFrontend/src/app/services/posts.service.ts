@@ -16,30 +16,18 @@ export class PostsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getTest(url: string): Observable<string>{
-    return this.httpClient.get<string>(url);
-  }
-
   addPost(post: Post): Observable<ReturnData<Post>> {
     return this.httpClient.post<ReturnData<Post>>(`${environment.apiUrl}/api/Forum/Posts`, post);
   }
 
-  getPost(key: string, pageIndex: Number): Observable<ReturnData<Post[]>> {
-    let params = new HttpParams();
-    params.set('key', key);
-    params.set('pageIndex', pageIndex.toString());
+  getPost(key: string, pageIndex: Number, pageSize: Number): Observable<ReturnData<Post[]>> {
     return this.httpClient.get<ReturnData<Post[]>>(
-      `${environment.apiUrl}/api/Forum/Posts`, { params: params});
+      `${environment.apiUrl}/api/Forum/Posts?key=${key}&pageIndex=${pageIndex}&pageSize=${pageSize}`);
   }
 
-  getReplies(postId: Number, pageIndex: Number): Observable<ReturnData<Replies>>{
-    console.log(`${postId} and ${pageIndex}`);
-
-    let params = new HttpParams();
-    params.set('postId', postId.toString());
-    params.set('pageIndex', pageIndex.toString());
+  getReplies(postId: Number, pageIndex: Number, pageSize: Number): Observable<ReturnData<Replies>>{
     return this.httpClient.get<ReturnData<Replies>>(
-      `${environment.apiUrl}/api/Forum/Reply?postId=${postId.toString()}&pageIndex=${pageIndex.toString()}`);
+      `${environment.apiUrl}/api/Forum/Reply?postId=${postId}&pageIndex=${pageIndex}&pageSize=${pageSize}`);
   }
 
   addReply(reply: PostReply): Observable<ReturnData<Reply>>{
