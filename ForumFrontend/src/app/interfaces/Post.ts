@@ -1,10 +1,10 @@
 export interface Post{
-  postid:  Number;
+  postid:  number;
   topic: string;
   content: string;
   postUserName: string;
   postAt: string;
   replyUserName: string;
   replyAt: string;
-  replyCount: Number;
+  replyCount: number;
 }

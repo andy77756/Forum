@@ -1,4 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { $ } from 'protractor';
 
 @Component({
   selector: 'app-search',
@@ -7,16 +9,23 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  @Output()
-  search = new EventEmitter<string>();
+  caretDown = faCaretDown;
 
+  @Output()
+  search = new EventEmitter<any>();
+
+  @Input()
   text = "";
+
+  selected = "keyTopic";
+
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
   sendSearch(){
-    this.search.emit(this.text);
+    this.search.emit({ key: this.text, searchField: this.selected});
   }
 }

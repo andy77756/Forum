@@ -23,7 +23,6 @@ export class DialogComponent implements OnInit {
   }
 
   close(){
-    this.overlayRef.detach();
+    this.overlayRef.dispose();
   }
-
 }

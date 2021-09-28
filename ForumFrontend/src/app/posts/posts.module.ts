@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { PostsRoutingModule } from './posts-routing.module';
 import { PostsComponent } from './posts.component';
 import { CreateComponent } from './create/create.component';
@@ -9,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ShareModule } from '../share/share.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -24,6 +23,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FormsModule,
     ShareModule,
     FontAwesomeModule,
+    MatPaginatorModule,
     TranslateModule.forChild()
   ]
 })

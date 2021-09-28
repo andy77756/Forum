@@ -4,44 +4,69 @@
       <fa-icon [icon]="arrowLeft" size="2x" [style]="{'color':'blue'}"></fa-icon>
     </button>
   </div>
+
+  <mat-paginator
+    [length]="metadata?.length"
+    [pageIndex]="metadata?.currentIndex"
+    [pageSize]="metadata?.pageSize"
+    [pageSizeOptions]="[5,10,25,100]"
+    [showFirstLastButtons]="true"
+    (page) = "changePage($event)"
+    >
+    </mat-paginator>
+
   <div *ngIf="post.topic != ''">
     <div class="post-header">
       <h1 class="h6">{{post.topic}}</h1>
     </div>
     <div class="post-content">
-      <div class="userInfo post-userInfo">
-        <div>
-          <p>{{post.postUserName}}</p>
-        </div>
-        <div>
-          <p>{{"post.postAt" | translate}}</p>
-          <p>{{post.postAt}}</p>
+      <div class="userInfo">
+        <div class="post-userInfo">
+          <div>
+            <p>{{post.postUserName}}</p>
+          </div>
+          <div>
+            <p>{{"post.postAt" | translate}}</p>
+            <p>{{post.postAt}}</p>
+          </div>
         </div>
       </div>
       <div class="post-body">
-        <p>
+
           {{post.content}}
-        </p>
+
       </div>
     </div>
 
     <div class="reply-content" *ngFor="let reply of replies">
       <div class="reply-body">
-        <p>
           {{reply.content}}
-        </p>
       </div>
-      <div class="userInfo reply-userInfo">
-        <div>
-          <p>{{reply.nickname}}</p>
-        </div>
-        <div>
-          <p>回覆於</p>
-          <p>{{reply.createAt}}</p>
+      <div class="userInfo">
+        <div class="reply-userInfo">
+          <div>
+            <p>{{reply.nickname}}</p>
+          </div>
+          <div>
+            <p>回覆於</p>
+            <p>{{reply.createAt}}</p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="reply-edit">
+  </div>
+
+  <mat-paginator
+    [length]="metadata?.length"
+    [pageIndex]="metadata?.currentIndex"
+    [pageSize]="metadata?.pageSize"
+    [pageSizeOptions]="[5,10,25,100]"
+    [showFirstLastButtons]="true"
+    (page) = "changePage($event)"
+    >
+    </mat-paginator>
+
+  <div class="reply-edit">
       <div class="">
         <form #form="ngForm">
           <fieldset class="form-group">
@@ -52,7 +77,6 @@
           <button [disabled]="form.invalid" class="btn btn-primary" (click)="addReply()">回覆</button>
         </form>
       </div>
-    </div>
   </div>
 
 </div>

@@ -1,12 +1,9 @@
-.searchInput{
-  width: 30%;
-  padding: 10px;
-  font-size: 1.5rem;
-  line-height: 1.5;
+.search-container {
+  float: left;
 }
 
-.search-container {
-  float: right;
+.search-container ul{
+  display: flex;
 }
 
 input[type=text] {
@@ -25,14 +22,70 @@ input:focus{
 .search-container button {
   float: right;
   padding: 6px 10px;
-  margin-top: 8px;
-  margin-right: 16px;
   background: #ddd;
   font-size: 17px;
   border: none;
   cursor: pointer;
 }
 
-.search-container button:hover {
+.search-container .searchButton:hover {
   background: #ccc;
+}
+
+
+.select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.select select {
+  display: inline-block;
+  width: 100%;
+  min-width: 100px;
+  padding: 10px 15px;
+  cursor: pointer;
+  color: #7b7b7b;
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+  background: #e6e6e6;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.select select::-ms-expand {
+  display: none;
+}
+
+.select select:hover,
+.select select:focus {
+  color: #000;
+  background: #ccc;
+}
+
+.select select:disabled {
+  pointer-events: none;
+  opacity: .5;
+}
+
+.select__arrow {
+  position: absolute;
+  top: 16px;
+  right: 15px;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  border-width: 8px 5px 0 5px;
+  border-style: solid;
+  border-color: #7b7b7b transparent transparent transparent;
+}
+.select select:hover ~ .select__arrow,
+.select select:focus ~ .select__arrow {
+  border-top-color: #000;
+}
+.select select:disabled ~ .select__arrow {
+  border-top-color: #ccc;
 }

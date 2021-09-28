@@ -1,5 +1,4 @@
-﻿using ForumDAL.Models;
-using ForumLib.Enums;
+﻿using ForumLib.Enums;
 using ForumLib.Extensions;
 using ForumLib.Models;
 using ForumLib.Services.ForumService;
@@ -49,26 +48,21 @@ namespace ForumWebApi.Controllers
         /// <summary>
         /// 取得文章列表
         /// </summary>
-        /// <param name="key">關鍵字</param>
+        /// <param name="keyTopic">關鍵字</param>
         /// <param name="pageIndex">頁數</param>
         /// <returns></returns>
         [HttpGet]
         [Route("Posts")]
-        public async Task<IActionResult> GetPost(string key, int? pageIndex)
+        public async Task<IActionResult> GetPost(string keyTopic, string keyNickname, int? pageIndex, int? pageSize)
         {
-            if (string.IsNullOrWhiteSpace(key))
-            {
-                return Ok(await ForumService.GetPostsAsync(pageIndex: pageIndex));
-            }
-
-            return Ok(await ForumService.GetPostsByFilterAsync(key, pageIndex: pageIndex));
+            return Ok(await ForumService.GetPostsAsync(keyTopic, keyNickname, pageIndex: pageIndex, pageSize: pageSize));
         }
 
         [HttpGet]
         [Route("Reply")]
-        public async Task<IActionResult> GetReplies(int postId, int? pageIndex)
+        public async Task<IActionResult> GetReplies(int postId, int? pageIndex, int? pageSize)
         {
-            return Ok(await ForumService.GetRepliesByPostIdAsync(postId, pageIndex: pageIndex));
+            return Ok(await ForumService.GetRepliesByPostIdAsync(postId, pageIndex: pageIndex, pageSize: pageSize));
         }
 
         [TypeFilter(typeof(LevelOneAuthorizationFilter))]

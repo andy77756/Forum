@@ -2,10 +2,18 @@
   <div class="container">
     <div class="navbar">
       <div class="navbar-brand">
-        <a  [routerLink]="['/']" routerLinkActive="router-link-active" >Forum</a>
+        <a  [routerLink]="['/posts']" routerLinkActive="router-link-active" >Forum</a>
       </div>
       <div class="navbar-nav">
         <ul >
+          <li class="nav-item dropdown">
+            <fa-icon [icon]="global"></fa-icon>
+            <a class="nav-link">{{"nav.langChoice" | translate}}</a>
+            <div class="dropdown-content">
+              <a class="nav-link" (click)="changeLang('zh-tw')">{{"nav.lang.zh-tw" | translate}}</a>
+              <a class="nav-link" (click)="changeLang('en')" >{{"nav.lang.en" | translate}}</a>
+            </div>
+          </li>
           <li class="nav-item" routerLinkActive="active">
               <a class="nav-link" [routerLink]="['/create']">
                 {{"nav.post" | translate}}
@@ -13,7 +21,6 @@
           </li>
           <li class="nav-item">
               <a class="nav-link" *ngIf="userInfo.token == '' " [routerLink]="['/login']" routerLinkActive="router-link-active" >{{"nav.login" | translate}}</a>
-              <a class="nav-link" *ngIf="userInfo.token != ''" (click)="logout()" >{{"nav.logout" | translate}}</a>
           </li>
           <li class="nav-item dropdown" *ngIf="userInfo.token != ''">
             <a class="nav-link">{{userInfo.nickname}}</a>

@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
 import { Injectable, Injector } from '@angular/core';
@@ -9,6 +10,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 export class UtilityService {
 
   constructor(
+    private translateService: TranslateService,
     private overlay : Overlay,
     private injector: Injector) { }
 
@@ -33,5 +35,9 @@ export class UtilityService {
     );
 
     overlayRef.attach(new ComponentPortal(DialogComponent, null, injector));
+  }
+
+  changeLang(lang: string){
+    this.translateService.use(lang);
   }
 }

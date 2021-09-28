@@ -23,5 +23,6 @@ namespace ForumLib.Dtos
         public string ReplyAt { get; set; }
 
         public int ReplyCount { get; set; }
+
     }
 }

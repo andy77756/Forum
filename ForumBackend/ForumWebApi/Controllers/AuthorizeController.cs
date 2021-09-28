@@ -27,9 +27,9 @@ namespace ForumWebApi.Controllers
         [Route("Register")]
         public async Task<IActionResult> RegisterAsync(RegisterInfo registerInfo)
         {
-            var userNameRex = new Regex("^[a-zA-Z][a-zA-Z0-9_-]{5,30}$");
-            var nicknameRex = new Regex(@"^[\u4E00-\u9FA5A-Za-z0-9_]{1,10}$");
-            var pwdRex = new Regex(@"^(?=.*[a-z])[^\u4e00-\u9fa5+]{6,20}$");
+            var userNameRex = new Regex(@"^[a-zA-Z][a-zA-Z0-9_-]{5,29}$");
+            var nicknameRex = new Regex(@"^[a-zA-Z][a-zA-Z0-9_-]{0,9}$");
+            var pwdRex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9-_]{6,30}$");
             if (
                 string.IsNullOrEmpty(registerInfo.UserName) || 
                 registerInfo.UserName.Length > 30 || 
@@ -66,7 +66,7 @@ namespace ForumWebApi.Controllers
         public async Task<IActionResult> LoginAsync(LoginInfo loginInfo)
         {
             var userNameRex = new Regex("^[a-zA-Z][a-zA-Z0-9_-]{5,30}$");
-            var pwdRex = new Regex(@"^(?=.*[a-z])[^\u4e00-\u9fa5+]{6,20}$");
+            var pwdRex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9-_]{6,30}$");
             if (
                 string.IsNullOrEmpty(loginInfo.UserName) || 
                 loginInfo.UserName.Length > 30 || 

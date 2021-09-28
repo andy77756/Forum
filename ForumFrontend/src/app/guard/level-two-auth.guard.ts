@@ -24,7 +24,7 @@ constructor(
 
         if(user.level < 2){
           this.utilityService.openDialog('-8');
-          return false;
+          return this.router.navigateByUrl('/');
         }
       }
 

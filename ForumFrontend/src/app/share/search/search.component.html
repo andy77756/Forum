@@ -1,8 +1,31 @@
 <div class="search-container">
-  <input
-    type="text"
-    placeholder="Search.."
-    [(ngModel)] = "text"
-  >
-  <button (click)= "sendSearch()">search</button>
+  <ul>
+    <li>
+      <input
+        type="text"
+        placeholder="Search.."
+        [(ngModel)] = "text"
+      >
+    </li>
+    <li>
+      <div class="select">
+        <select [(ngModel)]="selected">
+          <option value="keyTopic">{{"searchBar.topic" | translate }}</option>
+          <option value="keyNickname">{{"searchBar.nickname" | translate }}</option>
+        </select>
+        <div class="select__arrow">
+          <!--<fa-icon [icon]="caretDown"></fa-icon>-->
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="select">
+      <button class="searchButton" (click)= "sendSearch()">{{"searchBar.search" | translate}}</button>
+      </div>
+    </li>
+
+  </ul>
 </div>
+
+
+

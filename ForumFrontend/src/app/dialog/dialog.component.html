@@ -1,7 +1,7 @@
 <div class="jw-modal wrap">
   <div class="jw-modal-body">
     <div class="jw-modal-header">
-      <h1 class="h6 text-center">系統提示</h1>
+      <h1 class="h6 text-center">{{ "dialog.header" | translate}}</h1>
       <fa-icon [icon]="windowClose" (click)="close()"></fa-icon>
     </div>
     <div class="jw-modal-content">
@@ -10,8 +10,10 @@
       </p>
     </div>
     <div class="jw-modal-footer">
-      <button class="btn btn-primary" (click)="close()">Close</button>
+      <button class="btn btn-primary" (click)="close()">{{ "dialog.confirm" | translate}}</button>
     </div>
   </div>
 </div>
 <div class="jw-modal-background"></div>
+
+

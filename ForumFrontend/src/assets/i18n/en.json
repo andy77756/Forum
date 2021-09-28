@@ -22,7 +22,12 @@
   "nav":{
     "post": "New Post",
     "login": "Log In",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "langChoice": "language",
+    "lang": {
+      "zh-tw": "Chinese-Traditional",
+      "en": "Englisg"
+    }
   },
   "dialog":{
     "header":"System Information",
@@ -50,5 +55,10 @@
   "post":{
     "postAt":"Post At",
     "replyAt":"Reply At"
+  },
+  "searchBar":{
+    "search": "Search",
+    "topic":"Topic",
+    "nickname":"Nickname"
   }
 }

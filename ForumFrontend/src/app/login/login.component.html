@@ -29,7 +29,7 @@
                 [ngClass]="{'init': loginPwd.untouched ,'valid': loginPwd.touched && loginPwd.valid , 'invalid' : loginPwd.touched && loginPwd.invalid}"
                 required maxlength="20"
                 minlength="6"
-                pattern="^(?=.*[a-z])[^\u4e00-\u9fa5+]{6,20}$"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9-_]{6,30}$"
                 #loginPwd="ngModel"
                 [(ngModel)]="userLogin.pwd"
                 name="loginPwd"
@@ -96,7 +96,7 @@
             <fieldset class="form-control">
               <input
                 [ngClass]="{'init': pwd.untouched ,'valid': pwd.touched && pwd.valid , 'invalid' : pwd.touched && pwd.invalid}"
-                required maxlength="20" minlength="6" pattern="^(?=.*[a-z])[^\u4e00-\u9fa5+]{6,20}$" #pwd="ngModel"
+                required maxlength="20" minlength="6" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9-_]{6,30}$" #pwd="ngModel"
                 [(ngModel)]="userRegister.pwd" name="pwd" type="password"
                 placeholder="Password">
               <div *ngIf="pwd.invalid">

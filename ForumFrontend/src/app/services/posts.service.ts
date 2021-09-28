@@ -1,3 +1,4 @@
+import { Posts } from './../interfaces/Posts';
 import { Replies } from './../interfaces/Replies';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -20,12 +21,12 @@ export class PostsService {
     return this.httpClient.post<ReturnData<Post>>(`${environment.apiUrl}/api/Forum/Posts`, post);
   }
 
-  getPost(key: string, pageIndex: Number, pageSize: Number): Observable<ReturnData<Post[]>> {
-    return this.httpClient.get<ReturnData<Post[]>>(
-      `${environment.apiUrl}/api/Forum/Posts?key=${key}&pageIndex=${pageIndex}&pageSize=${pageSize}`);
+  getPost(keyTopic: string, keyNickname: string, pageIndex: number, pageSize: number): Observable<ReturnData<Posts>> {
+    return this.httpClient.get<ReturnData<Posts>>(
+      `${environment.apiUrl}/api/Forum/Posts?keyTopic=${keyTopic}&keyNickname=${keyNickname}&pageIndex=${pageIndex}&pageSize=${pageSize}`);
   }
 
-  getReplies(postId: Number, pageIndex: Number, pageSize: Number): Observable<ReturnData<Replies>>{
+  getReplies(postId: number, pageIndex: number, pageSize: number): Observable<ReturnData<Replies>>{
     return this.httpClient.get<ReturnData<Replies>>(
       `${environment.apiUrl}/api/Forum/Reply?postId=${postId}&pageIndex=${pageIndex}&pageSize=${pageSize}`);
   }

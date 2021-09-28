@@ -3,6 +3,7 @@
   text-align: center;
   margin-bottom: 5px;
   border-bottom: 1px black solid;
+  word-break: break-all;
 }
 
 .post-content{
@@ -18,7 +19,7 @@
   min-width: 170px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: start;
   border-radius: 50%;
 }
 
@@ -29,10 +30,13 @@
 
 .post-body{
   max-width: 50%;
+  width: 60%;
   border-radius: 5px;
   padding: 5px;
   line-height: 1.5;
   background-color: rgb(171, 240, 175);
+  white-space: pre-line;
+  word-wrap: break-word;
 }
 
 .reply-content{
@@ -50,10 +54,13 @@
 
 .reply-body{
   max-width: 50%;
+  width: 60%;
   padding: 5px;
   line-height: 1.5;
   border-radius: 5px;
   background-color: rgb(238, 227, 164);
+  white-space: pre-line;
+  word-wrap: break-word;
 }
 
 .reply{

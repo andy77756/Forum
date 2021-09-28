@@ -1,5 +1,5 @@
 <div class="container">
-  <app-search (search)="doSearch($event)"></app-search>
+  <app-search (search)="doSearch($event)" [text]="key"></app-search>
   <div class="row">
     <table class="table table-primary table-bordered">
       <thead>
@@ -51,7 +51,7 @@
       <tbody *ngFor="let item of posts">
         <tr>
           <td class="firstField">
-            <a [routerLink]="['/post', item.postid]" routerLinkActive="router-link-active">
+            <a (click)="toPost(item.postid)"  routerLinkActive="router-link-active">  <!--[routerLink]="['/post', item.postid]"-->
               <p>
                 {{item.topic}}
               </p>
@@ -72,4 +72,12 @@
       </tbody>
     </table>
   </div>
+  <mat-paginator
+    [length]="metadata?.length"
+    [pageIndex]="metadata?.currentIndex"
+    [pageSize]="metadata?.pageSize"
+    [pageSizeOptions]="[5,10,25,100]"
+    [showFirstLastButtons]="true"
+    (page)="changePage($event)">
+  </mat-paginator>
 </div>

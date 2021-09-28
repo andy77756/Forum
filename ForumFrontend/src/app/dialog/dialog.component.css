@@ -43,7 +43,12 @@ body.jw-modal-open {
   width: 100%;
 }
 
+.jw-modal-header fa-icon{
+  position: absolute;
+}
+
 .jw-modal-body .jw-modal-header{
+  position: relative;
   margin: 0;
   border: 0;
   border-bottom: 5px;

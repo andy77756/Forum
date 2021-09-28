@@ -12,6 +12,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import { ShareModule } from './share/share.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 export function createTanslateLoder(http: HttpClient){
@@ -26,6 +27,7 @@ export function createTanslateLoder(http: HttpClient){
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     LayoutModule,
     OverlayModule,
     FontAwesomeModule,

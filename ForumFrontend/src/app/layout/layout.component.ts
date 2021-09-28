@@ -2,7 +2,7 @@ import { UtilityService } from './../services/utility.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserInfo } from '../interfaces/UserInfo';
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faGlobe } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-layout',
@@ -12,6 +12,8 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 export class LayoutComponent implements OnInit {
 
   caretDown = faCaretDown;
+  global = faGlobe;
+
   userInfo : UserInfo = {
     token: '',
     userId: 0,
@@ -39,6 +41,10 @@ export class LayoutComponent implements OnInit {
       level: 0
     };
     this.router.navigateByUrl('/');
+  }
+
+  changeLang(lang: string){
+    this.utilityService.changeLang(lang);
   }
 
 }

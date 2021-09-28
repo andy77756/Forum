@@ -76,44 +76,33 @@ namespace ForumDAL.Repositories
         }
 
         /// <summary>
-        /// 取得文章列表
+        /// 取得文章列表, 預設page index=0, page size = 10
         /// </summary>
-        /// <returns></returns>
-        public async Task<QueryResult<IEnumerable<Post>>> GetPostsAsync(int? pageIndex = null, int? pageSize = null)
+        /// <param name="keyTopic">標題關鍵字</param>
+        /// <param name="keyNickname">作者關鍵字</param>
+        /// <param name="pageIndex">頁數</param>
+        /// <param name="pageSize">每頁數量</param>
+        public async Task<QueryResult<IEnumerable<Post>>> GetPostsAsync(string keyTopic, string keyNickname, int? pageIndex = null, int? pageSize = null)
         {
             using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
+                var param = new DynamicParameters();
+                param.Add("@key", keyTopic??"");
+                param.Add("@keyNickname", keyNickname??"");
+                param.Add("@pageIndex", pageIndex ?? 0);
+                param.Add("@pageSize", pageSize ?? 10);
+                param.Add("@length", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@returnValue", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
                 var result = await cn.QueryAsync<Post>(
                     "spGetPosts",
-                    new { pageIndex = pageIndex ?? 1, pageSize = pageSize ?? 10 },
+                    param,
                     commandType: CommandType.StoredProcedure);
 
                 return new QueryResult<IEnumerable<Post>>
                 {
                     StatusCode = 1,
-                    Result = result
-                };
-            }
-        }
-
-        /// <summary>
-        /// 取得篩選後文章列表
-        /// </summary>
-        /// <param name="key">關鍵字</param>
-        /// <returns></returns>
-        public async Task<QueryResult<IEnumerable<Post>>> GetPostsAsync(string key, int? pageIndex = null, int? pageSize = null)
-        {
-            using (var cn = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
-            {
-                var result = await cn.QueryAsync<Post>(
-                    "spGetPosts",
-                    new { key = key, pageIndex = pageIndex ?? 1, pageSize = pageSize ?? 10 },
-                    commandType: CommandType.StoredProcedure);
-
-                return new QueryResult<IEnumerable<Post>>
-                {
-                    StatusCode = 1,
-                    Result = result
+                    Result = result,
+                    Length = param.Get<int>("@length")
                 };
             }
         }
@@ -129,15 +118,16 @@ namespace ForumDAL.Repositories
             {
                 var param = new DynamicParameters();
                 param.Add("@postId", postId);
-                param.Add("@pageIndex", pageIndex ?? 1);
+                param.Add("@pageIndex", pageIndex ?? 0);
                 param.Add("@pageSize", pageSize ?? 10);
+                param.Add("@length", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@returnValue", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
                 var reader = await cn.QueryMultipleAsync(
                                         "spGetReplies",
                                         param,
                                         commandType: CommandType.StoredProcedure);
 
-                
+
                 return new QueryResult<Replys>
                 {
                     Result = new Replys
@@ -145,7 +135,8 @@ namespace ForumDAL.Repositories
                         Post = await reader.ReadSingleOrDefaultAsync<Post>(),
                         Replies = await reader.ReadAsync<Reply>()
                     },
-                    StatusCode = param.Get<int>("@returnValue")
+                    StatusCode = param.Get<int>("@returnValue"),
+                    Length = param.Get<int>("@length")
                 };              
             }
         }

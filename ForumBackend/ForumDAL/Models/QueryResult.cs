@@ -11,5 +11,11 @@
         /// 回傳結果
         /// </summary>
         public T Result { get; set; }
+
+        /// <summary>
+        /// 全部資料數量
+        /// </summary>
+        public int? Length { get; set; }
     }
+
 }

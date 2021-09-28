@@ -5,6 +5,9 @@ namespace ForumLib.Dtos
     public class ReplysDto
     {
         public PostDto Post { get; set; }
+
         public IEnumerable<ReplyDto> Replies { get; set; }
+
+        public MetaDataDto MetaData { get; set; }
     }
 }
