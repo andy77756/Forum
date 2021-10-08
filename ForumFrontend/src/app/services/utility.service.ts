@@ -38,6 +38,13 @@ export class UtilityService {
   }
 
   changeLang(lang: string){
+    localStorage.setItem('lang', lang);
     this.translateService.use(lang);
+  }
+
+  intiLang(){
+    const lang = localStorage.getItem('lang');
+
+    this.translateService.use(lang??'zh-tw');
   }
 }

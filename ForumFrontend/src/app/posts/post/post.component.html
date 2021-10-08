@@ -48,7 +48,7 @@
             <p>{{reply.nickname}}</p>
           </div>
           <div>
-            <p>回覆於</p>
+            <p>{{"post.replyAt" | translate}}</p>
             <p>{{reply.createAt}}</p>
           </div>
         </div>
@@ -71,10 +71,10 @@
         <form #form="ngForm">
           <fieldset class="form-group">
             <textarea class="form-control" name="content" [(ngModel)]="reply.content" #content="ngModel"
-              [placeholder]="placeHolder" required [disabled]="disabledReply">
+              placeholder= "{{placeHolder|translate}}" required [disabled]="disabledReply">
             </textarea>
           </fieldset>
-          <button [disabled]="form.invalid" class="btn btn-primary" (click)="addReply()">回覆</button>
+          <button [disabled]="form.invalid" class="btn btn-primary" (click)="addReply()">{{ "post.addReply" | translate}}</button>
         </form>
       </div>
   </div>

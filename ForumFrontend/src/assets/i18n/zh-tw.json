@@ -54,7 +54,10 @@
   },
   "post":{
     "postAt":"發表於",
-    "replyAt":"回覆於"
+    "replyAt":"回覆於",
+    "addReply":"回覆",
+    "placeHolder":"請輸入回覆內容..."
+
   },
   "searchBar":{
     "search": "搜尋",

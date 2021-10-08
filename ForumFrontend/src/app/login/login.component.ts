@@ -37,9 +37,7 @@ export class LoginComponent implements OnInit {
     private utilityService: UtilityService) { }
 
   ngOnInit(): void {
-    this.translateService.use('zh-tw');
     this.route.queryParamMap.subscribe(queryParamMap => {
-      console.log(queryParamMap.get('redirect'));
       this.redirect = queryParamMap.get('redirect')??'/';
     });
   }

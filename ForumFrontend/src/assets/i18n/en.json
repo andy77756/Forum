@@ -54,7 +54,9 @@
   },
   "post":{
     "postAt":"Post At",
-    "replyAt":"Reply At"
+    "replyAt":"Reply At",
+    "addReply":"Reply",
+    "placeHolder":"Please Enter Content..."
   },
   "searchBar":{
     "search": "Search",

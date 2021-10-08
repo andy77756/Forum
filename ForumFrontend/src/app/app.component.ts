@@ -10,9 +10,11 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent implements OnInit{
   title = 'ForumFrontend';
 
-  constructor(private translateService: TranslateService) { }
+  constructor(
+    private translateService: TranslateService,
+    private utilityService: UtilityService) { }
 
   ngOnInit(): void {
-    this.translateService.use('zh-tw');
+    this.utilityService.intiLang();
   }
 }

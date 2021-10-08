@@ -47,7 +47,7 @@ export class PostComponent implements OnInit {
     content: ''
   };
 
-  placeHolder = "請輸入回覆內容...";
+  placeHolder = "post.placeHolder";
   level = 0;
   disabledReply = false;
 
@@ -67,7 +67,7 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(paraMap => {
       const id = paraMap.get('id');
-      this.postService.getReplies(parseInt(id??'0'), 1, 10).subscribe(returnData => {
+      this.postService.getReplies(parseInt(id??'0'), 0, 10).subscribe(returnData => {
         if (returnData.statusCode == 1) {
           this.post = returnData.returnData.post;
           this.replies = returnData.returnData.replies;
@@ -147,7 +147,7 @@ export class PostComponent implements OnInit {
     this.route.paramMap.subscribe(paraMap => {
       const id = paraMap.get('id');
       this.postService
-      .getReplies(parseInt(id??'0'), event.pageIndex+1, event.pageSize)
+      .getReplies(parseInt(id??'0'), event.pageIndex, event.pageSize)
       .subscribe(returnData => {
         if (returnData.statusCode == 1) {
           this.post = returnData.returnData.post;
