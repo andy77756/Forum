@@ -339,10 +339,10 @@ form {
     border: 1px solid #ced4da;
 }
 
-/*create*/
-.editor-page form button {
+form button {
     margin-left: 10px;
 }
+
 
 /*forum*/
 .userName {
@@ -606,11 +606,42 @@ body.jw-modal-open {
     border-bottom-right-radius: 30px;
 }
 
-
-
 .jw-modal-footer button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
+
+
+/*login register tabs*/
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tabs-radio {
+    display: none;
+}
+
+.tabs-label {
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.tabs-content {
+    order: 1;
+    display: none;
+    width: 100%;
+    margin-top: 50px;
+}
+
+.tabs-radio:checked + .tabs-label {
+    font-weight: bold;
+    color: #009578;
+    border-bottom: 2px solid #009578;
+}
+
+    .tabs-radio:checked + .tabs-label + .tabs-content {
+        display: initial;
+    }
 
 
 html, body {

@@ -92,7 +92,12 @@
     <Content Include="js\jquery.router.min.js" />
     <Content Include="js\v1000\i18n.js" />
     <Content Include="js\v1000\Layout.js" />
-    <Content Include="js\v1000\PageCompnents.js" />
+    <Content Include="js\v1000\Main.js" />
+    <Content Include="js\v1000\PageComponents\CreatePageComponent.js" />
+    <Content Include="js\v1000\PageComponents\ForumPageComponent.js" />
+    <Content Include="js\v1000\PageComponents\LoginPageComponent.js" />
+    <Content Include="js\v1000\PageComponents\PostPageComponent.js" />
+    <Content Include="js\v1000\PageComponents\RegisterPageComponent.js" />
     <Content Include="js\v1000\RouterConfig.js" />
     <Content Include="js\v1000\ShareComponents.js" />
     <Content Include="js\vue-scroll.min.js" />

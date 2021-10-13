@@ -1,4 +1,7 @@
-﻿$.route((e, params, query) => {
+﻿/*
+    路由表
+*/
+$.route((e, params, query) => {
     switch (e.route.split('/')[1]) {
         case 'forum':
             this.vm.currentComponent = 'forumPageComponent'           

@@ -37,7 +37,7 @@ namespace Forum_v2.ajax
 
             if (!String.IsNullOrEmpty(token))
             {
-                request.Headers.Add("authorization", $"bear {token}");
+                request.Headers.Add("Authorization", $"Bearer {token}");
             }
             //將需 post 的資料內容轉為 stream 
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))

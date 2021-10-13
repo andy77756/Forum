@@ -1,9 +1,16 @@
-﻿const messages = {
+﻿/*
+  多語系設定
+  預設值: 中文
+  選項:
+    1. 'tw': 中文 
+    2. 'en': 英文
+*/
+var messages = {
     en: {
         "error": {
             "require": "{{itemName}} is reqired ",
-            "invalidMinLength": "Length should more than {{count}}",
-            "invalidMaxLength": "Length should less than {{count}}",
+            "invalidMinLength": "Length should more than {count}",
+            "invalidMaxLength": "Length should less than {count}",
             "invalidPattern": "invalid pattern",
             "1": "Success",
             "0": "UserName Exist",
@@ -18,7 +25,8 @@
             "-9": "Invalid Topic",
             "-10": "Invalid Content",
             "-11": "Post doesn't exist",
-            "-12": "Reply content coul't be null"
+            "-12": "Reply content coul't be null",
+            "-500": "Unknown Error Occured, Please Contact Admin."
         },
         "nav": {
             "post": "New Post",
@@ -39,7 +47,8 @@
             "pwd": "Password",
             "nickname": "Nickname",
             "login": "Login",
-            "register": "Register"
+            "register": "Register",
+            "cancel":"Cancel"
         },
         "posts": {
             "topic": "Topic",
@@ -68,8 +77,8 @@
     tw: {
         "error": {
             "require": "{{itemName}} 為必填欄位 ",
-            "invalidMinLength": "長度應大於{{count}}",
-            "invalidMaxLength": "長度應小於{{count}}",
+            "invalidMinLength": "長度應大於{count}",
+            "invalidMaxLength": "長度應小於{count}",
             "invalidPattern": "不符合規則",
             "1": "成功",
             "0": "使用者帳號已存在",
@@ -84,7 +93,8 @@
             "-9": "標題不符規範",
             "-10": "文章內容不符規範",
             "-11": "文章不存在",
-            "-12": "回覆內容不能為空"
+            "-12": "回覆內容不能為空",
+            "-500": "發生錯誤，請聯繫管理員"
         },
         "nav": {
             "post": "新增貼文",
@@ -105,7 +115,8 @@
             "pwd": "密碼",
             "nickname": "暱稱",
             "login": "登入",
-            "register": "註冊"
+            "register": "註冊",
+            "cancel": "取消"
         },
         "posts": {
             "topic": "標題",
@@ -134,7 +145,7 @@
     }
 }
 
-const i18n = new VueI18n({
+var i18n = new VueI18n({
     locale: 'tw',
     messages
 });

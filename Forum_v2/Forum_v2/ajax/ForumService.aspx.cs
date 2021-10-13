@@ -1,32 +1,58 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.IO;
+using System.Configuration;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Services;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Forum_v2.ajax
 {
-    public partial class ForumService : System.Web.UI.Page
+    /// <summary>
+    /// 討論區功能webmethod
+    /// </summary>
+    public partial class ForumService : Page
     {
+        /// <summary>
+        /// 取得指定文章內容
+        /// </summary>
+        /// <param name="id">文章Id</param>
+        /// <param name="index">頁數</param>
+        /// <param name="size">每頁大小</param>
+        /// <returns></returns>
         [WebMethod]
         public static string GetPostById(int id, int? index, int? size)
         {
-            var url = "https://localhost:44337/api/Forum/Reply?" + $"postId={id}&pageIndex={index ?? 0}&pageSize={size ?? 10}";
+            var url = ConfigurationManager.AppSettings["wabapiDomain"] + "/Forum/Reply?" + $"postId={id}&pageIndex={index ?? 0}&pageSize={size ?? 10}";
             var httpService = new HttpService();
-            return httpService.Get(url);
+            try
+            {
+                return httpService.Get(url);
+            }
+            catch (Exception)
+            {
+                return JsonConvert.SerializeObject(new
+                {
+                    statusCode = -500
+                });
+            }
         }
 
         [WebMethod]
         public static string GetPosts(string topic, string nickname, int? index, int? size)
         {
-            var url = "https://localhost:44337/api/Forum/Posts?" + $"keyTopic={topic}&keyNickname={nickname}&pageIndex={index ?? 0}&pageSize={size ?? 10}";
+            var url = ConfigurationManager.AppSettings["wabapiDomain"] + "/Forum/Posts?" + $"keyTopic={topic}&keyNickname={nickname}&pageIndex={index ?? 0}&pageSize={size ?? 10}";
             var httpService = new HttpService();
-            return httpService.Get(url);
+            try
+            {
+                return httpService.Get(url);
+            }
+            catch (Exception)
+            {
+                return JsonConvert.SerializeObject(new
+                {
+                    statusCode = -500
+                });
+            }
         }
 
         [WebMethod]
@@ -43,7 +69,7 @@ namespace Forum_v2.ajax
                 });
             }
 
-            if (validator.IsLevelTwo(claims.Claims.FirstOrDefault(x => x.Type == "level").Value))
+            if (!validator.IsLevelTwo(claims.Claims.FirstOrDefault(x => x.Type == "level").Value))
             {
                 return JsonConvert.SerializeObject(new
                 {
@@ -52,9 +78,19 @@ namespace Forum_v2.ajax
             }
 
 
-            var url = "https://localhost:44337/api/Forum/Posts";
+            var url = ConfigurationManager.AppSettings["webapiDomain"] + "/Forum/Posts";
             var httpService = new HttpService();
-            return httpService.Post(url, new { userId = userId, topic = topic, content = content}, token);
+            try
+            {
+                return httpService.Post(url, new { userId = userId, topic = topic, content = content }, token);
+            }
+            catch (Exception)
+            {
+                return JsonConvert.SerializeObject(new
+                {
+                    statusCode = -500
+                });
+            }
 
         }
 
@@ -81,9 +117,19 @@ namespace Forum_v2.ajax
             }
 
 
-            var url = "https://localhost:44337/api/Forum/Reply";
+            var url = ConfigurationManager.AppSettings["webapiDomain"] + "/Forum/Reply";
             var httpService = new HttpService();
-            return httpService.Post(url, new {postId = postId,  userId = userId, content = content }, token);
+            try
+            {
+                return httpService.Post(url, new { postId = postId, userId = userId, content = content }, token);
+            }
+            catch (Exception)
+            {
+                return JsonConvert.SerializeObject(new
+                {
+                    statusCode = -500
+                });
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)

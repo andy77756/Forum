@@ -1,15 +1,11 @@
-﻿var NavBarComponent = Vue.component('nav-bar', {
-    data: function () {
-        return {
-            userInfo: {
-                token: '',
-                userId: 0,
-                username: '',
-                nickname: '',
-                level: 0
-            }
-        }
-    },
+﻿/*
+    share元件
+
+    nav-bar: 上方導覽列
+    app-dialog: 錯誤訊息彈跳視窗
+*/
+
+var NavBarComponent = Vue.component('nav-bar', {
     template:
         `<div class="header header-primary">
           <div class="container">
@@ -50,25 +46,38 @@
             </div>
           </div>
         </div>`,
+    data: function () {
+        return {
+            userInfo: {
+                token: '',
+                userId: 0,
+                username: '',
+                nickname: '',
+                level: 0
+            }
+        }
+    },
     methods: {
-        navTo(route) {
+        navTo: function (route) {
+            // route = create: 判斷level權限, 權限不足show dialog; 
             if (route == 'create') {
                 if (this.userInfo.level < 2) {
-                    vm.errorMessage = this.$t('error.-8');
-                    vm.showdialog = true;
+                    this.$bus.$emit('errorEvent', { errorMessage: this.$t('error.-8'), show: true });
                 }
                 else {
-                    $.router.set(`/${route}`);
+                    $.router.set('/' + route);
                 }
             }
             else {
-                $.router.set(`/${route}`);
+                $.router.set('/' + route);
             }
         },
-        changeLang(lang) {
+        changeLang: function(lang) {
             this.$i18n.locale = lang;
         },
-        logout() {
+        logout: function () {
+            // 清空localStorage, 將userInfo設為預設值
+            localStorage.clear();
             this.userInfo = {
                 token: '',
                 userId: 0,
@@ -78,7 +87,8 @@
             }
         }
     },
-    created() {
+    created: function () {
+        //若localStorage不為空則取userInfo欄位值反序列化為物件後指派給data:userInfo
         if (localStorage.getItem('userInfo') != null) {
             this.userInfo  = JSON.parse(localStorage.getItem("userInfo").toString() ?? '{}');           
         }
@@ -96,7 +106,7 @@ var DialogComponent = Vue.component('app-dialog', {
               </div>
               <div class="jw-modal-content">
                 <p class="h6 text-center">
-                  <slot>error</slot>
+                  {{errorMessage}}
                 </p>
               </div>
               <div class="jw-modal-footer">
@@ -106,16 +116,23 @@ var DialogComponent = Vue.component('app-dialog', {
           </div>
           <div class="jw-modal-background"></div>`+
         `</div>`,
-    props: {
-        show: {
-            type: Boolean,
-            required: true,
-            twoWay: true
+    data: function () {
+        return {
+            errorMessage: '',
+            show: false
         }
     },
     methods: {
-        close() {
-            vm.showdialog = false;
+        close: function() {
+            this.show = false;
         }
+    },
+    created: function () {
+        //訂閱event bus的errorEvent事件, 觸發事件後修改errorMessage及show
+        var global = this;
+        this.$bus.$on("errorEvent", function(event){
+            global.errorMessage = event.errorMessage;
+            global.show = event.show;
+        })
     }
 })

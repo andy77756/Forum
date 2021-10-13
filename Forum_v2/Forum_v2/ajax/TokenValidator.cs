@@ -47,8 +47,10 @@ namespace Forum_v2.ajax
                 RequireExpirationTime = false,
                 ValidateAudience = false,
                 ValidIssuer = "Forum",
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("123456789109148387491"))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("123456789109148387491")),
+                ValidateLifetime = false
             };
+            
             var validResult = tokenHandler.ValidateToken(token, validateParam, out var securityToken);
 
             return validResult;
