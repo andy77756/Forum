@@ -8,6 +8,11 @@ namespace Forum_v2.ajax
 {
     public class TokenValidator
     {
+        /// <summary>
+        /// 驗證token是否過期
+        /// </summary>
+        /// <param name="expireDt"></param>
+        /// <returns></returns>
         public bool IsExpired(string expireDt)
         {
              if (DateTime.Now > ToDatetime(expireDt))
@@ -18,6 +23,11 @@ namespace Forum_v2.ajax
             return false;
         }
 
+        /// <summary>
+        /// 驗證使否為Level1
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
         public bool IsLevelOne(string level)
         {
             if (Convert.ToInt32(level) >= 1 )
@@ -28,6 +38,11 @@ namespace Forum_v2.ajax
             return false;
         }
 
+        /// <summary>
+        /// 驗證使否為Level2
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
         public bool IsLevelTwo(string level)
         {
             if (Convert.ToInt32(level) >= 2)
@@ -38,6 +53,11 @@ namespace Forum_v2.ajax
             return false;
         }
 
+        /// <summary>
+        /// 驗證並取得JWT Claim
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public ClaimsPrincipal GetClaimPrincipal(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -56,7 +76,11 @@ namespace Forum_v2.ajax
             return validResult;
         }
 
-
+        /// <summary>
+        /// Unix時間轉為Datetime
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         private DateTime ToDatetime(string str)
         {
             var unixTimeStamp = Convert.ToDouble(str);

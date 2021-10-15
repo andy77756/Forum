@@ -2,11 +2,11 @@
     新增文章頁面
 */
 
-var CreatePageComponent = Vue.extend({
+var CreatePageComponent = {
     template:
         `<div>` +
         //導覽列
-        `<nav-bar></nav-bar>` +
+        `<navBar></navBar>` +
         // Form表單
         `<div class="editor-page">
                 <div class="container page">
@@ -19,10 +19,10 @@ var CreatePageComponent = Vue.extend({
                                 <textarea v-model="newPost.content" class="form-control" rows="8" :placeholder="$t('create.content')"></textarea>
                             </fieldset>
                             <div class="form-control-right">
-                                <button @click="send" type="button" class="btn btn-primary">
+                                <button @click="Send" type="button" class="btn btn-primary">
                                     {{$t('create.createBtn')}}
                                 </button>
-                                <button class="btn btn-alert" @click="cancel">
+                                <button class="btn btn-alert" @click="Cancel">
                                     {{$t('create.cancelBtn')}}
                                 </button>
                             </div>
@@ -32,6 +32,9 @@ var CreatePageComponent = Vue.extend({
             </div>` +
         `</div>`
     ,
+    components: {
+        'navBar': NavBarComponent
+    },
     data: function () {
         return {
             newPost: {
@@ -42,14 +45,11 @@ var CreatePageComponent = Vue.extend({
             }
         }
     },
-    components: {
-        'nav-bar': NavBarComponent
-    },
     methods: {
-        cancel: function() {
+        Cancel: function() {
             $.router.set('/forum');
         },
-        send: function () {
+        Send: function () {
             //發送新增文章ajax, 成功 or 無權限則導回首頁, 發生錯誤皆顯示dialog
             var local = this;
             $.ajax({
@@ -85,4 +85,4 @@ var CreatePageComponent = Vue.extend({
             this.newPost.token = userInfo.token;
         }
     }
-});
+};

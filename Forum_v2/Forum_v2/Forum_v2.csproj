@@ -125,6 +125,7 @@
     <Compile Include="ajax\HttpService.cs" />
     <Compile Include="ajax\TokenValidator.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -138,6 +139,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

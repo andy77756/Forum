@@ -37,6 +37,14 @@ namespace Forum_v2.ajax
             }
         }
 
+        /// <summary>
+        /// 取得文章列表
+        /// </summary>
+        /// <param name="topic"></param>
+        /// <param name="nickname"></param>
+        /// <param name="index"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
         [WebMethod]
         public static string GetPosts(string topic, string nickname, int? index, int? size)
         {
@@ -55,6 +63,14 @@ namespace Forum_v2.ajax
             }
         }
 
+        /// <summary>
+        /// 新增文章
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="topic"></param>
+        /// <param name="content"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [WebMethod]
         public static string Addpost(int userId, string topic, string content, string token)
         {
@@ -94,6 +110,14 @@ namespace Forum_v2.ajax
 
         }
 
+        /// <summary>
+        /// 新增回覆
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <param name="userId"></param>
+        /// <param name="content"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [WebMethod]
         public static string AddReply(int postId , int userId, string content, string token)
         {

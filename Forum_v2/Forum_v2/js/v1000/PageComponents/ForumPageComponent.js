@@ -1,10 +1,10 @@
 ﻿/*
     討論區首頁
 */
-var ForumPageComponent = Vue.extend({
+var ForumPageComponent = {
     template:
         `<div>` +
-        `<nav-bar></nav-bar>` +
+        `<navBar></navBar>` +
         `<div class="container">` +
         //search
         `<div class="search-container">
@@ -12,7 +12,7 @@ var ForumPageComponent = Vue.extend({
               <li>
                 <input
                   type="text"
-                  v-bind:placeholder="$t('searchBar.search')"
+                  :placeholder="$t('searchBar.search')"
                   v-model = "text"
                 >
               </li>
@@ -28,11 +28,11 @@ var ForumPageComponent = Vue.extend({
               </li>
               <li>
                 <div class="select">
-                <button class="searchButton" @click= "searchFilter">{{$t('searchBar.search')}}</button>
+                <button class="searchButton" @click= "SearchFilter">{{$t('searchBar.search')}}</button>
                 </div>
               </li>
             </ul>
-        </div>`+
+        </div>`+       
         //table      
         `<div class="row">
             <table class="table table-primary table-bordered">
@@ -64,7 +64,7 @@ var ForumPageComponent = Vue.extend({
               <tbody >
                 <tr>
                   <td class="firstField">
-                    <a @click="toPost(item.postid)">
+                    <a @click="ToPost(item.postid)">
                       <p>
                         {{item.topic}}
                       </p>
@@ -86,40 +86,59 @@ var ForumPageComponent = Vue.extend({
             </template>
             </table>
           </div>`+
+        //pagination
+        `<pagination
+            :length="metaData.length"
+            :currentIndex="metaData.currentIndex"
+            :pageSize="metaData.pageSize"
+            :pageLength="metaData.pageLength"
+            @indexChange="DoSearch"
+         >
+         </pagination>`+
         `</div>` +
         `</div>`
     ,
+    components: {
+        'navBar': NavBarComponent,
+        'pagination': Pagination
+    },
     data: function () {
         return {
             posts: [],
             text: '',
             selected: 'keyTopic',
-            searchKey: new Map()
+            searchKey: new Map(),
+            metaData: {
+                length: 0,
+                currentIndex: 0,
+                pageSize: 10,
+                pageLength: 1
+            }
         }
     },
-    components: {
-        'nav-bar': NavBarComponent
-    },
     methods: {
-        toPost: function(postid) {
+        DoSearch: function (event) {
+            this.SendSearch(this.searchKey.get('keyTopic'), this.searchKey.get('keyNickname'), event.currentIndex, event.pageSize);
+        },
+        ToPost: function(postid) {
             this.searchKey.set('keyTopic', '');
             this.searchKey.set('keyNickname', '');
             this.searchKey.set(this.selected, this.text);
             $.router.set({ route: '/post/'+ postid, queryString: 'searchField=' + this.selected + '&key=' + this.text });
         },
-        searchFilter: function() {
+        SearchFilter: function() {
             this.searchKey.set('keyTopic', '');
             this.searchKey.set('keyNickname', '');
             this.searchKey.set(this.selected, this.text);
-            this.sendSearch(this.searchKey.get('keyTopic'), this.searchKey.get('keyNickname'), 0, 5);
+            this.SendSearch(this.searchKey.get('keyTopic'), this.searchKey.get('keyNickname'), this.metaData.currentIndex, this.metaData.pageSize);
         },
-        sendSearch: function(topic, nickname, index, size) {
+        SendSearch: function(topic, nickname, index, size) {
             var datas = this;
             var postData = {
                 topic: topic,
                 nickname: nickname,
-                index: 0,
-                size: 5
+                index: index,
+                size: size
             };
             $.ajax({
                 type: "POST",
@@ -130,6 +149,10 @@ var ForumPageComponent = Vue.extend({
                 success: function (response) {
                     var result = JSON.parse(response.d);
                     datas.posts = result.returnData.posts;
+                    datas.metaData.length = result.returnData.metaData.length;
+                    datas.metaData.currentIndex = result.returnData.metaData.currentIndex;
+                    datas.metaData.pageSize = result.returnData.metaData.pageSize;
+                    datas.metaData.pageLength = Math.floor(datas.metaData.length / datas.metaData.pageSize) + 1;
                 }
             });
         }
@@ -137,6 +160,6 @@ var ForumPageComponent = Vue.extend({
     created: function() {
         this.searchKey.set('keyTopic', '');
         this.searchKey.set('keyNickname', '');
-        this.sendSearch("", "", 0, 10);
+        this.SendSearch("", "", 0, 10);
     }
-});
+};

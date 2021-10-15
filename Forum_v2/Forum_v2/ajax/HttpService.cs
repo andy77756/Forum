@@ -10,6 +10,11 @@ namespace Forum_v2.ajax
 {
     public class HttpService
     {
+        /// <summary>
+        /// Get方法
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         public string Get(string url)
         {
             var result = "";
@@ -28,6 +33,13 @@ namespace Forum_v2.ajax
             return result;
         }
 
+        /// <summary>
+        /// Post方法
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="postData"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public string Post(string url, object postData, string token)
         {
             var result = "";

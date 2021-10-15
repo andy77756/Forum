@@ -63,6 +63,7 @@ table {
 .container {
     margin: 0 auto;
     max-width: 1200px;
+    width: auto;
 }
 
 .wrap {
@@ -134,6 +135,8 @@ a {
     font-size: 20px;
     border-radius: 5px;
     color: white;
+    border-style: solid;
+    line-height: initial;
 }
 
     .btn:active {
@@ -356,9 +359,6 @@ form button {
 
 /*search*/
 
-.search-container {
-    float: left;
-}
 
     .search-container ul {
         display: flex;
@@ -642,7 +642,21 @@ body.jw-modal-open {
     .tabs-radio:checked + .tabs-label + .tabs-content {
         display: initial;
     }
+/* pagination */
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+}
 
+    .pagination p {
+        width: auto;
+        padding: 10px;
+    }
+
+    .pagination select {
+        min-width: 50px;
+        text-align: center;
+    }
 
 html, body {
     height: 100%;

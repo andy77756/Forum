@@ -2,13 +2,13 @@
     註冊頁面
 */
 
-var RegisterPageComponent = Vue.extend({
+var RegisterPageComponent = {
     template:
         `<div class="wrap">` +
         `<div class="container">
                 <div class="row">
                     <div class="tabs">
-                        <input type="radio" class="tabs-radio"  id="tab1" @click="navTo('/login')">
+                        <input type="radio" class="tabs-radio"  id="tab1" @click="NavTo('/login')">
                         <label for="tab1" class="tabs-label">{{$t('login.login')}}</label>
 
                         <input type="radio" class="tabs-radio"  id="tab2"  checked>
@@ -16,20 +16,20 @@ var RegisterPageComponent = Vue.extend({
                         <div class="tabs-content">
                             <form>
                                 <fieldset class="form-control">
-                                    <input v-model="userRegister.userName" @keyup="userNameValidate" name="loginUserName" type="text" :placeholder="$t('login.userName')">
+                                    <input v-model="userRegister.userName" @keyup="UserNameValidate" name="loginUserName" type="text" :placeholder="$t('login.userName')">
                                 </fieldset>
                                 <fieldset class="form-control" v-show="!validation.userName.valid">
                                     <p v-for="item in validation.userName.errorMessage">{{item}}</p>
                                 </fieldset>
                                 <fieldset class="form-control">
                                     <input
-                                      v-model="userRegister.nickname" @keyup="nicknameValidate" name="nickname" type="text" :placeholder="$t('login.nickname')" >
+                                      v-model="userRegister.nickname" @keyup="NicknameValidate" name="nickname" type="text" :placeholder="$t('login.nickname')" >
                                 </fieldset>
                                 <fieldset class="form-control" v-show="!validation.nickname.valid">
                                     <p v-for="item in validation.nickname.errorMessage">{{item}}</p>
                                 </fieldset>
                                 <fieldset class="form-control">
-                                    <input v-model="userRegister.pwd" @keyup="pwdValidate" name="loginPwd" type="password" :placeholder="$t('login.pwd')">
+                                    <input v-model="userRegister.pwd" @keyup="PwdValidate" name="loginPwd" type="password" :placeholder="$t('login.pwd')">
                                 </fieldset>
                                 <fieldset class="form-control" v-show="!validation.pwd.valid">
                                     <p v-for="item in validation.pwd.errorMessage">{{item}}</p>
@@ -38,10 +38,10 @@ var RegisterPageComponent = Vue.extend({
                                     <button class="btn  btn-primary"
                                         type="button"
                                         :disabled="!(validation.userName.valid&validation.nickname.valid&validation.pwd.valid)"
-                                        @click="register">
+                                        @click="Register">
                                         {{$t('login.register')}}
                                     </button>
-                                    <button class="btn  btn-alert" @click="navTo('/forum')">{{$t('login.cancel')}}</button>
+                                    <button class="btn  btn-alert" @click="NavTo('/forum')">{{$t('login.cancel')}}</button>
                                 </div>
                             </form>
                         </div>
@@ -77,7 +77,7 @@ var RegisterPageComponent = Vue.extend({
            username input keyup事件驗證方法
            長度5~30字元, 第一個字元大小英文,其餘可以大小寫英數字
         */
-        userNameValidate: function (event) {
+        UserNameValidate: function (event) {
             this.validation.userName.valid = true;
             this.validation.userName.errorMessage = [];
             if (this.userRegister.userName.length < 5) {
@@ -98,7 +98,7 @@ var RegisterPageComponent = Vue.extend({
            nickname input keyup事件驗證方法
            長度1~10字元, 第一個字元大小英文,其餘可以大小寫英數字
         */
-        nicknameValidate: function (event) {
+        NicknameValidate: function (event) {
             this.validation.nickname.valid = true;
             this.validation.nickname.errorMessage = [];
             if (this.userRegister.nickname.length < 1) {
@@ -119,7 +119,7 @@ var RegisterPageComponent = Vue.extend({
            pwd input keyup事件驗證方法
            長度6~20字元, 至少包含一個大寫英文一個小寫英文一個數字
         */
-        pwdValidate: function (event) {
+        PwdValidate: function (event) {
             this.validation.pwd.valid = true;
             this.validation.pwd.errorMessage = [];
             if (this.userRegister.pwd.length < 6) {
@@ -136,7 +136,7 @@ var RegisterPageComponent = Vue.extend({
                 this.validation.pwd.valid = false;
             }
         },
-        register: function() {
+        Register: function() {
             var local = this;
             $.ajax({
                 type: "POST",
@@ -158,8 +158,8 @@ var RegisterPageComponent = Vue.extend({
                 }
             });
         },
-        navTo: function(route) {
+        NavTo: function(route) {
             $.router.set(route);
         }
     }
-});
+};

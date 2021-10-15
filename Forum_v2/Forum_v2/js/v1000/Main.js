@@ -9,21 +9,23 @@ this.vm = new Vue({
     template:
         `<div>`+
         `<div :is="currentComponent"></div>
-         <app-dialog>
-         </app-dialog>`+
+         <errorDialog>
+         </errorDialog>`+
         `</div>`,
-    i18n,
     components: {
         'forumPageComponent': ForumPageComponent,
         'postPageComponent': PostPageComponent,
         'createPageComponent': CreatePageComponent,
         'loginPageComponent': LoginPageComponent,
-        'registerPageComponent': RegisterPageComponent
+        'registerPageComponent': RegisterPageComponent,
+        'errorDialog': DialogComponent
     },
+    i18n,
+    vuetify: new Vuetify(),
     data: function () {
         return {
             currentComponent: 'forumPageComponent'
         }
-    }
+    } 
 })
 $.router.set('/');

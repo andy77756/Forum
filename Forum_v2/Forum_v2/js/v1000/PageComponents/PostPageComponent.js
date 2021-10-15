@@ -2,12 +2,21 @@
     回覆文章頁面
 */
 
-var PostPageComponent = Vue.extend({
+var PostPageComponent = {
     template:
         `<div>` +
-        `<nav-bar></nav-bar>` +
+        `<navBar></navBar>` +
         `<div class="container">` +
-        `<button class='btn btn-primary' @click="back">返回</button>` +
+        `<button class='btn btn-primary' @click="Back">返回</button>` +
+        //pagination
+        `<pagination
+            :length="metaData.length"
+            :currentIndex="metaData.currentIndex"
+            :pageSize="metaData.pageSize"
+            :pageLength="metaData.pageLength"
+            @indexChange="DoSearch"
+         >
+         </pagination>`+
         //文章內容及回覆列表
         `<template v-if="post.topic != ''">
             <div class="post-header">
@@ -55,12 +64,16 @@ var PostPageComponent = Vue.extend({
                     <textarea class="form-control" name="content" :disabled="level >= 1 ? false : true" v-model="reply.content" :placeholder="$t('post.placeHolder')">
                   </textarea>
                 </fieldset>
-                <button type="button" class="btn btn-primary" :disabled="!reply.content" @click="addReply">{{$t('post.addReply')}}</button>
+                <button type="button" class="btn btn-primary" :disabled="!reply.content" @click="AddReply">{{$t('post.addReply')}}</button>
             </form>
         </div>`+
         `</div>` +
         `</div>`
     ,
+    components: {
+        'navBar': NavBarComponent,
+        'pagination': Pagination
+    },
     data: function () {
         return {
             queryString: '',
@@ -89,14 +102,20 @@ var PostPageComponent = Vue.extend({
                 searchField: '',
                 pageIndex: 0,
                 pageSize: 10
+            },
+            metaData: {
+                length: 0,
+                currentIndex: 0,
+                pageSize: 10,
+                pageLength: 1
             }
         }
-    },
-    components: {
-        'nav-bar': NavBarComponent
-    },
+    }, 
     methods: {
-        addReply: function() {
+        DoSearch: function(event) {
+            this.SendSearch(this.postId, event.currentIndex, event.pageSize);
+        },
+        AddReply: function() {
             var local = this;
             $.ajax({
                 type: "POST",
@@ -115,7 +134,7 @@ var PostPageComponent = Vue.extend({
                 }
             });
         },
-        sendSearch: function(postid, index, size) {
+        SendSearch: function(postid, index, size) {
             var datas = this;
             var postData = {
                 id: postid,
@@ -132,16 +151,20 @@ var PostPageComponent = Vue.extend({
                     var result = JSON.parse(response.d);
                     datas.post = result.returnData.post;
                     datas.replies = result.returnData.replies;
+                    datas.metaData.length = result.returnData.metaData.length;
+                    datas.metaData.currentIndex = result.returnData.metaData.currentIndex;
+                    datas.metaData.pageSize = result.returnData.metaData.pageSize;
+                    datas.metaData.pageLength = Math.floor(datas.metaData.length / datas.metaData.pageSize) + 1;
                 }
             });
         },
-        back: function() {
+        Back: function() {
             $.router.set('/Forum'+ this.queryString);
         }
     },
     created: function() {
         if (localStorage.getItem('userInfo') != null) {
-            const userInfo = JSON.parse(localStorage.getItem("userInfo").toString() ?? '{}');
+            var userInfo = JSON.parse(!!localStorage.getItem("userInfo").toString() ? localStorage.getItem("userInfo").toString() : '{}');
             this.reply.userId = userInfo.userId;
             this.reply.token = userInfo.token;
             this.level = userInfo.level;
@@ -149,6 +172,6 @@ var PostPageComponent = Vue.extend({
         this.postId = +(window.location.pathname.split('/')[2]);
         this.reply.postId = +(window.location.pathname.split('/')[2]);
         this.queryString = window.location.search;
-        this.sendSearch(this.postId, 0, 5);
+        this.SendSearch(this.postId, this.metaData.currentIndex, this.metaData.pageSize);
     }
-});
+};
